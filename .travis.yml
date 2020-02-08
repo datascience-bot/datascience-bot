@@ -1,0 +1,26 @@
+# Run tests w/ pytest
+language: python
+jobs:
+  include:
+    - name: "3.6 Unit Test"
+      python: "3.6"
+      env: TESTDIR=modules/submission-moderator
+      before_install:
+        - python --version
+        - pip install --upgrade pip
+        - pip install --upgrade pytest
+        - pip install -r requirements.txt
+      install:
+        - pip install ${TESTDIR}/.
+    - name: "3.7 Unit Test"
+      python: "3.7"
+      env: TESTDIR=modules/submission-moderator
+      before_install:
+        - python --version
+        - pip install --upgrade pip
+        - pip install --upgrade pytest
+        - pip install -r requirements.txt
+      install:
+        - pip install ${TESTDIR}/.
+script:
+  - pytest -v
