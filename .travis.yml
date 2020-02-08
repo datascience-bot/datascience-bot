@@ -9,7 +9,7 @@ jobs:
         - python --version
         - pip install --upgrade pip
         - pip install --upgrade pytest
-        - pip install -r requirements.txt
+        - pip install -r ${TESTDIR}/requirements.txt
       install:
         - pip install ${TESTDIR}/.
     - name: "3.7 Unit Test"
@@ -19,7 +19,7 @@ jobs:
         - python --version
         - pip install --upgrade pip
         - pip install --upgrade pytest
-        - pip install -r requirements.txt
+        - pip install -r ${TESTDIR}/requirements.txt
       install:
         - pip install ${TESTDIR}/.
 script:
