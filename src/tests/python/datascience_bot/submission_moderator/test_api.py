@@ -8,6 +8,15 @@ from werkzeug.exceptions import BadRequest
 from datascience_bot.submission_moderator.api import app, ROOT
 
 
+@pytest.fixture
+def client():
+    app.config["TESTING"] = True
+
+    with app.test_client() as client:
+        with app.app_context():
+            yield client
+
+
 def test__api(client):
     response = client.get(ROOT)
     assert response.status_code == 200
