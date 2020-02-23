@@ -8,7 +8,7 @@ jobs:
     - name: "Unit Test Submission Moderator"
       python: "3.7"
       env: 
-        - GOAL=test TARGET=src/tests/python/datascience_bot/submission_moderator
+        - GOAL=test TARGET=src/tests/python/datascience_bot/submission_moderator:tests
 before_install:
   - python --version
 script:
