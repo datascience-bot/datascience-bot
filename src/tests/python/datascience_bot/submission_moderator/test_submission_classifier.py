@@ -4,7 +4,7 @@
 from collections import namedtuple
 import pytest
 
-from submission_moderator.submission_classifier import (
+from datascience_bot.submission_moderator.submission_classifier import (
     classify_submission,
     SubmissionLabel,
 )

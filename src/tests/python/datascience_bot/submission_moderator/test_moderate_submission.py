@@ -6,7 +6,7 @@ import praw
 import pytest
 from unittest.mock import create_autospec, Mock
 
-from submission_moderator import moderate_submission
+from datascience_bot.submission_moderator import moderate_submission
 
 
 def mock_submission(url: str) -> Mock:
@@ -62,7 +62,8 @@ def mock_user(link_karma: int = None, comment_karma: int = None):
     ],
 )
 def test__moderate_submission(submission, author, action):
-    moderate_submission(submission, author)
+    submission.author = author
+    moderate_submission(submission)
 
     if action == "approve":
         submission.mod.approve.assert_called_once_with()
@@ -78,34 +79,8 @@ def test__moderate_submission(submission, author, action):
 def test__moderate_approved_submission():
     submission = mock_submission("not-a-real-url.com")
     submission.approved_by = 'datascience-bot'
-    moderate_submission(submission, mock_user())
+    submission.author = mock_user()
+    moderate_submission(submission)
 
     assert submission.mod.approve.call_count == 0
     assert submission.mod.remove.call_count == 0
-
-# def main():
-#     from pprint import pprint
-
-#     reddit = MockReddit()
-#     submission = MockSubmission(reddit)
-#     submission.url = "totally-harmless-url.com"
-#     submission.url = "pornhub.com"
-#     submission.approved_by = None
-#     submission.mod = MockSubmissionModeration(submission)
-
-#     author = MockRedditor(reddit)
-#     author.link_karma = 0
-#     author.comment_karma = 190
-
-#     test__moderate_submission(submission, author)
-
-#     # pprint(submission.__dict__)
-#     # submission.mod.approve.assert_called_once_with()
-#     submission.mod.remove.assert_called_once_with(spam=True)
-#     # pprint(submission.mod.approve.called)
-#     # pprint(submission.mod.approve.assert_called_once_with())
-
-
-# if __name__ == "__main__":
-#     main()
-#     # submission.mod.remove.assert_called_with(True, key="spam")

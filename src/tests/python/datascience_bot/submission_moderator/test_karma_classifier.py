@@ -3,7 +3,7 @@
 """
 import pytest
 
-from submission_moderator.karma_classifier import classify_karma
+from datascience_bot.submission_moderator.karma_classifier import classify_karma
 
 
 @pytest.mark.parametrize(

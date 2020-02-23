@@ -5,7 +5,7 @@ from flask import jsonify
 import pytest
 from werkzeug.exceptions import BadRequest
 
-from submission_moderator.api import app, ROOT
+from datascience_bot.submission_moderator.api import app, ROOT
 
 
 def test__api(client):
@@ -15,16 +15,18 @@ def test__api(client):
 
 def test__json_only(client):
     response = client.post(
-        f"{ROOT}/moderate-submission", data={"submission_id": "euot0h"}
+        "/".join([ROOT, "moderate-submission"]), data={"submission_id": "euot0h"}
     )
     assert response.status_code == 400
+
     response = client.post(
-        f"{ROOT}/moderate-submission", json={"submission_id": "euot0h"}
+        "/".join([ROOT, "moderate-submission"]), json={"submission_id": "euot0h"}
     )
     assert response.status_code == 200
 
+
 def test__moderation(client):
     response = client.post(
-        f"{ROOT}/moderate-submission", json={"submission_id": "euot0h"}
+        "/".join([ROOT, "moderate-submission"]), json={"submission_id": "euot0h"}
     )
     assert response.status_code == 200
