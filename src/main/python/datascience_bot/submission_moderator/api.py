@@ -10,7 +10,7 @@ from flask import Flask, jsonify, request, abort
 from werkzeug.exceptions import BadRequest, InternalServerError
 
 from . import moderate_submission
-from .authenticate_user import get_datascience_bot
+from .authpraw import get_datascience_bot
 
 app = Flask(__name__)
 ROOT = "/api/v0/submission-moderator"
