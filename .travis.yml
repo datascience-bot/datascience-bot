@@ -7,8 +7,9 @@ before_install:
   # - printf "[GLOBAL]\npants_version: $(./pants --version)\n" > pants.ini
 jobs:
   include:
+    - name: "Unit Test authpraw"
+      env: GOAL=test TARGET=src/tests/python/datascience_bot/authpraw:tests
     - name: "Unit Test submission_moderator"
-      env: 
-        - GOAL=test TARGET=src/tests/python/datascience_bot/submission_moderator:tests
+      env: GOAL=test TARGET=src/tests/python/datascience_bot/submission_moderator:tests
 script:
   - ./pants ${GOAL} ${TARGET}
