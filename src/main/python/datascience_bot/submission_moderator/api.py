@@ -9,8 +9,8 @@ import praw
 from flask import Flask, jsonify, request, abort
 from werkzeug.exceptions import BadRequest, InternalServerError
 
+from datascience_bot.authpraw import get_datascience_bot
 from . import moderate_submission
-from .authpraw import get_datascience_bot
 
 app = Flask(__name__)
 ROOT = "/api/v0/submission-moderator"

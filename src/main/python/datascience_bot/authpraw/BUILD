@@ -3,7 +3,5 @@ python_library(
   sources=['*.py'],
   dependencies=[
     '3rdparty:praw',
-    '3rdparty:flask',
-    'src/main/python/datascience_bot/authpraw:lib',
   ],
 )
