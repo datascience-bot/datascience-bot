@@ -1,3 +1,6 @@
+# private environment variables
+.env.sh
+
 # pants helpers
 .pants.d
 .pants.workdir.file_lock
