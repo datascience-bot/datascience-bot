@@ -11,7 +11,5 @@ jobs:
         - GOAL=test TARGET=src/test/python/datascience_bot/submission_moderator
 before_install:
   - python --version
-install:
-  - pip install ${TESTDIR}/.
 script:
   - ./pants $GOAL $TARGET
