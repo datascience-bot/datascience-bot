@@ -18,7 +18,7 @@ def moderate_submission(submission: praw.models.Submission):
     author = submission.author
 
     # identify rule violations in user contributions
-    user_label = classify_karma(total_karma=_calc_total_karma)
+    user_label = classify_karma(total_karma=_calc_total_karma(submission.author))
     if user_label == "new user":
         remove_underqualified(submission)
         return None

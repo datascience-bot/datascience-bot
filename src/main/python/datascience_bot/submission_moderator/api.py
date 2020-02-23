@@ -34,10 +34,9 @@ def moderate_submissions():
 
     bob = get_datascience_bot()
     submission = bob.submission(submission_id)
-    author = submission.author
 
     try:
-        moderate_submission(submission, author)
+        moderate_submission(submission)
     except Exception as err:
         abort(500, f"Unknown Internal Error: {err}")
     else:
