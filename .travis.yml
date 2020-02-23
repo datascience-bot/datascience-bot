@@ -12,4 +12,4 @@ jobs:
 before_install:
   - python --version
 script:
-  - ./pants $GOAL $TARGET
+  - ./pants ${GOAL} ${TARGET}
