@@ -1,15 +1,14 @@
 language: python
-before_install:
-  - curl -L -O https://pantsbuild.github.io/setup/pants && sudo chmod +x pants
-  - ./pants --version  # verify that Pants bootstraps correctly
-  - printf "[GLOBAL]\npants_version: $(./pants --version)\n" > pants.ini
-jobs:
-  include:
-    - name: "Unit Test Submission Moderator"
-      python: "3.7"
-      env: 
-        - GOAL=test TARGET=src/tests/python/datascience_bot/submission_moderator:tests
+python: "3.7"
 before_install:
   - python --version
+  # - curl -L -O https://pantsbuild.github.io/setup/pants && sudo chmod +x pants
+  - ./pants --version  # verify that Pants bootstraps correctly
+  # - printf "[GLOBAL]\npants_version: $(./pants --version)\n" > pants.ini
+jobs:
+  include:
+    - name: "Unit Test submission_moderator"
+      env: 
+        - GOAL=test TARGET=src/tests/python/datascience_bot/submission_moderator:tests
 script:
   - ./pants ${GOAL} ${TARGET}
