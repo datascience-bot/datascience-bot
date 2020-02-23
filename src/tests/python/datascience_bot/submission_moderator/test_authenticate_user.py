@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Test authenticate_user.py module
+"""Test authpraw.py module
 """
-from submission_moderator.authenticate_user import get_datascience_bot
+from datascience_bot.submission_moderator.authpraw import get_datascience_bot
 
 
 def test__get_datascience_bot():

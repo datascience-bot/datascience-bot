@@ -1,3 +1,8 @@
+# pants helpers
+.pants.d
+.pants.workdir.file_lock
+.pids
+
 # developer artifacts
 .vscode/
 .DS_Store

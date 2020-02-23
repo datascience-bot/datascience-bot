@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Submission Moderator for r/datascience
 
 Identify submissions from under-qualified users and links to spam.
@@ -10,19 +11,19 @@ from .submission_classifier import classify_submission
 __version__ = "0.0.1.dev1"
 
 
-def moderate_submission(
-    submission: praw.models.Submission, author: praw.models.Redditor
-):
+def moderate_submission(submission: praw.models.Submission):
     if submission.approved_by is not None:
         return None
 
+    author = submission.author
+
     # identify rule violations in user contributions
-    user_label = classify_karma(total_karma=author.link_karma + author.comment_karma)
+    user_label = classify_karma(total_karma=_calc_total_karma(submission.author))
     if user_label == "new user":
-        remove_underqualified(submission, author)
+        remove_underqualified(submission)
         return None
     elif user_label == "troll":
-        remove_troll(submission, author)
+        remove_troll(submission)
         return None
 
     # identify rule violations in submission
@@ -34,10 +35,10 @@ def moderate_submission(
         remove_porn(submission)
         return None
     elif submission_label.reason == "video hosting site":
-        remove_video(submission, author, submission_label.blacklisted_domain)
+        remove_video(submission, submission_label.blacklisted_domain)
         return None
     elif submission_label.reason == "blog aggregator":
-        remove_blog(submission, author, submission_label.blacklisted_domain)
+        remove_blog(submission, submission_label.blacklisted_domain)
         return None
 
     submission.mod.approve()
@@ -47,13 +48,9 @@ def remove_porn(submission: praw.models.Submission):
     submission.mod.remove(spam=True)
 
 
-def remove_blog(
-    submission: praw.models.Submission,
-    author: praw.models.Redditor,
-    blacklisted_domain: str,
-):
+def remove_blog(submission: praw.models.Submission, blacklisted_domain: str):
     text = (
-        f"Hi u/{author.name}, I removed your submission. "
+        f"Hi u/{submission.author.name}, I removed your submission. "
         f"r/{submission.subreddit.display_name} receives a lot of spam "
         f"from {blacklisted_domain}. Try sharing the original article in a "
         "text submission and offer context for discussion in the body of "
@@ -64,13 +61,9 @@ def remove_blog(
     submission.mod.remove(spam=True)
 
 
-def remove_video(
-    submission: praw.models.Submission,
-    author: praw.models.Redditor,
-    blacklisted_domain: str,
-):
+def remove_video(submission: praw.models.Submission, blacklisted_domain: str):
     text = (
-        f"Hi u/{author.name}, I removed your submission. "
+        f"Hi u/{submission.author.name}, I removed your submission. "
         f"Submissions from {blacklisted_domain} are not allowed on "
         f"r/{submission.subreddit.display_name}."
     )
@@ -79,20 +72,18 @@ def remove_video(
     submission.mod.remove(spam=True)
 
 
-def remove_troll(submission: praw.models.Submission, author: praw.models.Redditor):
+def remove_troll(submission: praw.models.Submission):
     submission.mod.remove(spam=True)
 
 
-def remove_underqualified(
-    submission: praw.models.Submission, author: praw.models.Redditor
-):
+def remove_underqualified(submission: praw.models.Submission):
     weekly_thread = "[weekly entering & transitioning thread](https://www.reddit.com/r/datascience/search?q=Weekly%20Entering%20%26%20Transitioning%20Thread&restrict_sr=1&t=week)"
     the_wiki = "[the wiki](https://www.reddit.com/r/datascience/wiki/index)"
     message_the_mods = "[message the mods](https://www.reddit.com/message/compose?to=%2Fr%2Fdatascience)"
-    total_karma = author.link_karma + author.comment_karma
+    total_karma = _calc_total_karma(submission.author)
 
     text = (
-        f"Hi u/{author.name}, "
+        f"Hi u/{submission.author.name}, "
         f"I removed your submission to r/{submission.subreddit.display_name}.\n"
         f"\n"
         f"r/{submission.subreddit.display_name} gets a lot of posts from "
@@ -111,3 +102,7 @@ def remove_underqualified(
     comment = submission.reply(text)
     comment.mod.distinguish(how="yes", sticky=True)
     submission.mod.remove()
+
+
+def _calc_total_karma(author: praw.models.Redditor):
+    return author.link_karma + author.comment_karma
