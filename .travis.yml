@@ -3,7 +3,7 @@ jobs:
   include:
     - name: "Unit Test Submission Moderator"
       python: "3.7"
-      env: TESTDIR=modules/submission-moderator
+      env: TESTDIR=services/submission-moderator
 before_install:
   - python --version
   - pip install --upgrade pip
