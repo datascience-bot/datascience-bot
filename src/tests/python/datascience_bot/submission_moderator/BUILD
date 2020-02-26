@@ -3,6 +3,7 @@
 python_tests(
   name='tests',
   dependencies=[
+    '3rdparty:hypothesis',
     'src/main/python/datascience_bot/submission_moderator:lib',
   ],
 )
