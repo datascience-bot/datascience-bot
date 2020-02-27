@@ -5,7 +5,7 @@ from typing import Dict
 import praw
 import pytest
 
-from datascience_bot.submission_moderator.__main__ import (
+from submission_moderator.__main__ import (
     get_submission,
     lambda_handler,
     main,

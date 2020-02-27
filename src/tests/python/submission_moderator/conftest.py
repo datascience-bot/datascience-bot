@@ -6,7 +6,7 @@ from unittest.mock import create_autospec, Mock
 import praw
 import pytest
 
-from datascience_bot.authpraw import get_datascience_bot
+from authpraw import get_datascience_bot
 
 @pytest.fixture
 def bob():

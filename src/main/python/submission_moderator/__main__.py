@@ -5,7 +5,7 @@ from typing import Dict
 import praw
 from prawcore.exceptions import NotFound
 
-from ..authpraw import get_datascience_bot
+from authpraw import get_datascience_bot
 from . import SubmissionModerator
 
 VALID_SUBMISSION: str = "reddit base36 submission ID, e.g., `2gmzqe`"

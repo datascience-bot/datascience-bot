@@ -5,7 +5,7 @@ from hypothesis import given
 from hypothesis.strategies import text
 import pytest
 
-from datascience_bot.submission_moderator import (
+from submission_moderator import (
     SubmissionModerator,
     SubmissionClassifier,
 )

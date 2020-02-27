@@ -5,7 +5,7 @@ from hypothesis import given
 from hypothesis.strategies import text
 import pytest
 
-from datascience_bot.submission_moderator import SubmissionClassifier
+from submission_moderator import SubmissionClassifier
 
 
 @pytest.mark.parametrize("url", SubmissionClassifier.PORN_DOMAINS)
