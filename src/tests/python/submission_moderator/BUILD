@@ -4,6 +4,7 @@ python_tests(
   name='tests',
   dependencies=[
     '3rdparty:hypothesis',
+    '3rdparty:praw',
     'src/main/python/submission_moderator:lib',
   ],
 )

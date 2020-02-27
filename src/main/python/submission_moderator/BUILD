@@ -3,7 +3,6 @@ python_library(
   sources=['*.py'],
   dependencies=[
     '3rdparty:praw',
-    '3rdparty:flask',
     'src/main/python/authpraw:lib',
   ],
 )
