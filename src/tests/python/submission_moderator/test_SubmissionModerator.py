@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 """Unit Test SubmissionModerator
 """
+from unittest.mock import PropertyMock
+
 from hypothesis import given
 from hypothesis.strategies import text
 import pytest
 
-from submission_moderator import (
-    SubmissionModerator,
-    SubmissionClassifier,
-)
+from submission_moderator import SubmissionClassifier, SubmissionModerator
 
 
 @pytest.fixture
@@ -34,6 +33,14 @@ def test_submission_moderator_moderate(moderator, submission, url):
 
     result = moderator.moderate(submission)
     assert isinstance(result, type(None))
+
+
+def test_submission_moderator_ignores_approved(moderator, submission):
+    submission.approved = True
+    moderator.moderate(submission)
+
+    # don't classify anything if the post has been approved
+    assert not submission.mod.approve.called
 
 
 def test_submission_moderator_moderates_clean(moderator, submission):

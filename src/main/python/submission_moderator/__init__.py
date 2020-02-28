@@ -7,8 +7,8 @@ Usage:
     >>> import authpraw
     >>> reddit = authpraw.get_datascience_bot()
     >>> sm = SubmissionModerator(reddit)
-    >>> sm.moderate(submission_id="euot0h")
-    {'action': 'approve'}
+    >>> submission = reddit.submission("euot0h")
+    >>> sm.moderate(submission)
 """
 from collections import namedtuple
 from typing import List
@@ -30,12 +30,19 @@ class SubmissionModerator:
     def __init__(self, redditor: praw.models.Redditor) -> None:
         # TODO: Verify redditor is a mod
         self.redditor = redditor
+        self.classifier = SubmissionClassifier()
 
     def moderate(self, submission: praw.models.Submission) -> None:
+        self.submission = submission
+
+        if self.submission.approved is True:
+            # assume all approved submissions have already been moderated
+            return None
+
         # TODO: What if user doesn't have moderator privileges in the
         # submission's subreddit?
-        c = SubmissionClassifier()
-        c.classify(submission)
+        self.classifier.classify(submission)
+        c = self.classifier
 
         if c.is_porn or c.is_video or c.is_blog:
             submission.mod.remove(spam=True)
@@ -54,7 +61,7 @@ class SubmissionModerator:
             comment.mod.distinguish(how="yes", sticky=True)
             return None
 
-        submission.mod.approve()
+        self.submission.mod.approve()
 
 
 class SubmissionClassifier:

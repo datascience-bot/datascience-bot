@@ -8,9 +8,11 @@ import pytest
 
 from authpraw import get_datascience_bot
 
+
 @pytest.fixture
 def bob():
     return get_datascience_bot()
+
 
 @pytest.fixture
 def redditor():
@@ -23,6 +25,7 @@ def redditor():
 @pytest.fixture
 def submission(redditor):
     submission = create_autospec(praw.models.Submission)
+    submission.approved = False
     submission.approved_by = None
     submission.author = redditor
     submission.mod = create_autospec(praw.models.reddit.submission.SubmissionModeration)
