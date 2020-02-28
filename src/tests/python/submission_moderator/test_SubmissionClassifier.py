@@ -21,7 +21,11 @@ def test_submission_classifier_classify_porn(submission, url):
     assert c.is_blog is False
 
 
-@pytest.mark.parametrize("url", SubmissionClassifier.VIDEO_DOMAINS)
+@pytest.mark.parametrize(
+    "url",
+    list(SubmissionClassifier.VIDEO_DOMAINS)
+    + ["https://www.youtube.com/watch?v=-qstIEHDVRg"],
+)
 def test_submission_classifier_classify_video(submission, url):
     """Unit test expected failures of SubmissionModerator.__init__
     """
