@@ -3,8 +3,8 @@
 python_tests(
   name='tests',
   dependencies=[
-    '3rdparty:hypothesis',
-    '3rdparty:praw',
+    '3rdparty/python:hypothesis',
+    '3rdparty/python:praw',
     'src/main/python/submission_moderator:lib',
   ],
 )
