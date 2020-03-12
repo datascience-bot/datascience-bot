@@ -3,11 +3,5 @@ python: "3.7"
 before_install:
   - python --version
   - ./pants --version  # verify that Pants bootstraps correctly
-# jobs:
-#   include:
-#     - name: "Unit Test authpraw"
-#       env: GOAL=test TARGET=src/tests/python/authpraw:tests
-#     - name: "Unit Test submission_moderator"
-#       env: GOAL=test TARGET=src/tests/python/submission_moderator:tests
 script:
   - "./pants test ::"
