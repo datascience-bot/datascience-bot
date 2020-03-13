@@ -20,10 +20,10 @@ from prawcore.exceptions import NotFound
 
 __copyright__ = "Copyright 2020, Nick Vogt"
 __license__ = "MIT"
-__version__ = version.parse("0.0.1.dev1")
+__version__ = version.parse("0.1.0.dev0")
 __maintainer__ = "Nick Vogt"
 __email__ = "vogt4nick@gmail.com"
-__status__ = "Prototype"  # one of "Prototype", "Development", "Production"
+__status__ = "Development"  # one of "Prototype", "Development", "Production"
 
 
 def get_submission(
