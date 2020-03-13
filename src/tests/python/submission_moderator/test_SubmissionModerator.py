@@ -12,75 +12,63 @@ from submission_moderator import SubmissionClassifier, SubmissionModerator
 
 @pytest.fixture
 def moderator(redditor):
-    """Unit test expected usage of SubmissionModerator.__init__
+    """Unit test expected behavior of SubmissionModerator.__init__
     and make object
     """
     return SubmissionModerator(redditor)
 
 
-def test_submission_moderator_init_fail():
-    """Unit test expected failures of SubmissionModerator.__init__
+def test_submission_moderator_approves_submissions(moderator, submission):
+    """Unit test expected behavior of SubmissionModerator.moderate 
+    on submissions which don't break the rules
     """
-    with pytest.raises(TypeError):
-        SubmissionModerator()
-
-
-@given(url=text())
-def test_submission_moderator_moderate(moderator, submission, url):
-    """Unit test expected usage of SubmissionModerator.moderate
-    """
-    submission.url = url
-
-    result = moderator.moderate(submission)
-    assert isinstance(result, type(None))
-
-
-def test_submission_moderator_ignores_approved(moderator, submission):
-    submission.approved = True
+    assert not (submission.approved is True)
     moderator.moderate(submission)
-
-    # don't classify anything if the post has been approved
-    assert not submission.mod.approve.called
-
-
-def test_submission_moderator_moderates_clean(moderator, submission):
-    """Unit test expected result of SubmissionModerator.moderate on a
-    clean submission
-    """
-    moderator.moderate(submission)
-
-    submission.mod.approve.assert_called_once()
+    assert submission.mod.approve.called
     assert not submission.mod.remove.called
     assert not submission.reply.called
 
 
-@pytest.mark.parametrize("url", SubmissionClassifier.PORN_DOMAINS)
-def test_submission_moderator_moderates_porn(moderator, submission, url):
-    """Unit test expected result of SubmissionModerator.moderate
+def test_submission_moderator_ignores_approved(moderator, submission):
+    """Unit test expected behavior of SubmissionModerator.moderate
+    on submissions which have already been approved
     """
-    submission.url = url
+    submission.approved = True
     moderator.moderate(submission)
-
+    # don't classify anything if the post has been approved
     assert not submission.mod.approve.called
-    submission.mod.remove.assert_called_once_with(spam=True)
+    assert not submission.mod.remove.called
     assert not submission.reply.called
 
 
-@pytest.mark.parametrize("url", SubmissionClassifier.VIDEO_DOMAINS)
-def test_submission_moderator_moderates_videos(moderator, submission, url):
-    submission.url = url
-    moderator.moderate(submission)
+def test_submission_moderator_moderates_porn(moderator, porn_submission):
+    """Unit test expected behavior of SubmissionModerator.moderate
+    on submissions which link to banned porn domains
+    """
+    moderator.moderate(porn_submission)
 
-    assert not submission.mod.approve.called
-    submission.mod.remove.assert_called_once_with(spam=True)
-    submission.reply.assert_called_once()
+    assert not porn_submission.mod.approve.called
+    porn_submission.mod.remove.assert_called_once_with(spam=True)
+    assert not porn_submission.reply.called
 
 
-@pytest.mark.parametrize("url", SubmissionClassifier.BLOG_DOMAINS)
-def test_submission_moderator_moderates_blogs(moderator, submission, url):
-    submission.url = url
-    moderator.moderate(submission)
+def test_submission_moderator_moderates_videos(moderator, video_submission):
+    """Unit test expected behavior of SubmissionModerator.moderate
+    on submissions which link to banned video hosting domains
+    """
+    moderator.moderate(video_submission)
 
-    assert not submission.mod.approve.called
-    submission.mod.remove.assert_called_once_with(spam=True)
-    submission.reply.assert_called_once()
+    assert not video_submission.mod.approve.called
+    video_submission.mod.remove.assert_called_once_with(spam=True)
+    video_submission.reply.assert_called_once()
+
+
+def test_submission_moderator_moderates_blogs(moderator, blog_submission):
+    """Unit test expected behavior of SubmissionModerator.moderate
+    on submissions which link to banned blog aggregator domains
+    """
+    moderator.moderate(blog_submission)
+
+    assert not blog_submission.mod.approve.called
+    blog_submission.mod.remove.assert_called_once_with(spam=True)
+    blog_submission.reply.assert_called_once()

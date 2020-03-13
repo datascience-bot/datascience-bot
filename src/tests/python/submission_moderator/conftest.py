@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 """Test fixtures for moderate_submissions module
 """
+from typing import Dict
 from unittest.mock import create_autospec, Mock
 
 import praw
 import pytest
 
 from authpraw import get_datascience_bot
+
+# we'll borrow from the implementation for now to ensure full test coverage
+from submission_moderator import SubmissionClassifier
 
 
 @pytest.fixture
@@ -34,3 +38,22 @@ def submission(redditor):
     submission.url = ""
 
     return submission
+
+
+@pytest.fixture(params=list(SubmissionClassifier.BLOG_DOMAINS))
+def blog_submission(submission, request):
+    submission.url = request.param
+    return submission
+
+
+@pytest.fixture(params=list(SubmissionClassifier.VIDEO_DOMAINS))
+def video_submission(submission, request):
+    submission.url = request.param
+    return submission
+
+
+@pytest.fixture(params=list(SubmissionClassifier.PORN_DOMAINS))
+def porn_submission(submission, request):
+    submission.url = request.param
+    return submission
+
