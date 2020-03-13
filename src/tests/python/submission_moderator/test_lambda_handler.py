@@ -5,33 +5,11 @@ from typing import Dict
 import praw
 import pytest
 
-from submission_moderator.__main__ import (
-    get_submission,
-    lambda_handler,
-    main,
-)
+from submission_moderator import get_submission
+from submission_moderator.__main__ import lambda_handler, main
 
 # TODO: consider refactoring get_submission such that tests don't depend on a
 # live praw.Reddit instance
-
-
-@pytest.mark.parametrize("submission_id", ["euot0h"])
-def test_get_submission(bob, submission_id):
-    """Unit test expected usage of get_submission
-    """
-    result = get_submission(submission_id, bob)
-
-    assert isinstance(result, praw.models.Submission)
-    assert result._reddit.user.me() == "datascience-bot"
-    print(result.title)
-
-
-@pytest.mark.parametrize("submission_id", [1, 4e-96, ("what", "a", "tuple")])
-def test_get_submission_501(bob, submission_id):
-    """Unit test unexpected usage of get_submission
-    """
-    with pytest.raises(NotImplementedError):
-        result = get_submission(submission_id, bob)
 
 
 @pytest.fixture
@@ -39,7 +17,7 @@ def context() -> Dict:
     """AWS Lambda Handler `context` argument
     """
     # TODO: Pass a properly configured context object
-    # maybe something from aws-lambda-context
+    # maybe something from the aws-lambda-context module
     return {}
 
 
@@ -48,6 +26,25 @@ def event() -> Dict:
     """AWS Lambda Handler `event` argument
     """
     return {"body": {"submission_id": "euot0h"}}
+
+
+@pytest.mark.parametrize("submission_id", ["euot0h"])
+def test_get_submission(bob, submission_id):
+    """Unit test expected behavior of get_submission
+    """
+    result = get_submission(submission_id, bob)
+
+    assert isinstance(result, praw.models.Submission)
+    # only ever test with datascience-bot
+    assert result._reddit.user.me() == "datascience-bot"
+
+
+@pytest.mark.parametrize("submission_id", [1, 4e-96, ("what", "a", "tuple")])
+def test_get_submission_501(bob, submission_id):
+    """Unit test unexpected usage of get_submission
+    """
+    with pytest.raises(NotImplementedError):
+        result = get_submission(submission_id, bob)
 
 
 def test_main_200(event, context):

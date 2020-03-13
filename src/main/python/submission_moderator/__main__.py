@@ -6,33 +6,10 @@ import praw
 from prawcore.exceptions import NotFound
 
 from authpraw import get_datascience_bot
-from . import SubmissionModerator
+from . import get_submission, SubmissionModerator
+
 
 VALID_SUBMISSION: str = "reddit base36 submission ID, e.g., `2gmzqe`"
-
-
-def get_submission(
-    submission_id: str, redditor: praw.models.Redditor
-) -> praw.models.Submission:
-    f"""Return a praw Submission from a given ID using u/datascience-bot
-    
-    Args:
-        submission_id (str): A {VALID_SUBMISSION}
-    
-    Raises:
-        NotImplementedError: invalid Submission ID
-    
-    Returns:
-        praw.models.Submission: Submission with corresponding ID
-    """
-    submission = redditor.submission(submission_id)
-
-    try:
-        submission.title
-    except NotFound:
-        raise NotImplementedError(f"{submission_id} is not a valid submission ID")
-    else:
-        return submission
 
 
 def main(event: Dict, context: Dict) -> Dict:
@@ -57,7 +34,8 @@ def main(event: Dict, context: Dict) -> Dict:
             "status_code": 404,
             "msg": (
                 "response missing 'body' and nested 'submission_id' "
-                f"mapping to a {VALID_SUBMISSION}"
+                f"mapping to a {VALID_SUBMISSION}."
+                "try {'body': {'submission_id': '2gmzqe'} }"
             ),
         }
         return response
@@ -95,4 +73,5 @@ def lambda_handler(event: Dict, context: Dict) -> Dict:
     try:
         return main(event, context)
     except Exception as err:
+        # unknown exceptions should not fail silently
         return {"status_code": 501, "msg": err}

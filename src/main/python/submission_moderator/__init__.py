@@ -14,6 +14,8 @@ from collections import namedtuple
 from typing import List
 
 import praw
+from prawcore.exceptions import NotFound
+
 
 __copyright__ = "Copyright 2020, Nick Vogt"
 __license__ = "MIT"
@@ -21,6 +23,30 @@ __version__ = "0.0.1.dev1"
 __maintainer__ = "Nick Vogt"
 __email__ = "vogt4nick@gmail.com"
 __status__ = "Prototype"  # one of "Prototype", "Development", "Production"
+
+
+def get_submission(
+    submission_id: str, redditor: praw.models.Redditor
+) -> praw.models.Submission:
+    f"""Return a praw Submission from a given ID using u/datascience-bot
+    
+    Args:
+        submission_id (str): A reddit base36 submission ID, e.g., `2gmzqe`
+    
+    Raises:
+        NotImplementedError: invalid Submission ID
+    
+    Returns:
+        praw.models.Submission: Submission with corresponding ID
+    """
+    submission = redditor.submission(submission_id)
+
+    try:
+        submission.title
+    except NotFound:
+        raise NotImplementedError(f"{submission_id} is not a valid submission ID")
+    else:
+        return submission
 
 
 class SubmissionModerator:
