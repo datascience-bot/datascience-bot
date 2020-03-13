@@ -3,8 +3,6 @@
 """
 from unittest.mock import PropertyMock
 
-from hypothesis import given
-from hypothesis.strategies import text
 import pytest
 
 from submission_moderator import SubmissionClassifier, SubmissionModerator
