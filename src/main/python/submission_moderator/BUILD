@@ -13,7 +13,6 @@ python_binary(
   name='submission_moderator-bin',
   source='api.py',
   dependencies=[
-    'src/tests/python/submission_moderator:tests',
     ':lib'
   ]
 )
