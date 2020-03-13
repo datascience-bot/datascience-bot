@@ -1,4 +1,5 @@
-"""Unit test datascience_bot.submission_moderator.__main__
+# -*- coding: utf-8 -*-
+"""Unit test submission_moderator get_submission
 """
 from typing import Dict
 
