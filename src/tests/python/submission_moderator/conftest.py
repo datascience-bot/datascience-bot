@@ -9,8 +9,8 @@ import pytest
 
 from authpraw import get_datascience_bot
 
-# we'll borrow from the implementation for now to ensure full test coverage
 from submission_moderator import SubmissionClassifier
+from submission_moderator.api import app
 
 
 @pytest.fixture
@@ -57,3 +57,9 @@ def porn_submission(submission, request):
     submission.url = request.param
     return submission
 
+
+@pytest.fixture
+def client():
+    app.config["TESTING"] = True
+    with app.test_client() as client:
+        yield client

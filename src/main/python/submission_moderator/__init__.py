@@ -13,13 +13,14 @@ Usage:
 from collections import namedtuple
 from typing import List
 
+from packaging import version
 import praw
 from prawcore.exceptions import NotFound
 
 
 __copyright__ = "Copyright 2020, Nick Vogt"
 __license__ = "MIT"
-__version__ = "0.0.1.dev1"
+__version__ = version.parse("0.0.1.dev1")
 __maintainer__ = "Nick Vogt"
 __email__ = "vogt4nick@gmail.com"
 __status__ = "Prototype"  # one of "Prototype", "Development", "Production"
