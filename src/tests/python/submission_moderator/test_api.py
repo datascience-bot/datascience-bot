@@ -8,7 +8,7 @@ from submission_moderator.api import app, ROOT
 
 
 def test_api(client):
-    """Unit test expected behavior of submission_moderator API 
+    """Unit test expected behavior of submission_moderator API
     status request
     """
     response = client.get(f"/{ROOT}")
@@ -16,7 +16,7 @@ def test_api(client):
 
 
 def test_api_version(client):
-    """Unit test expected behavior of submission_moderator API 
+    """Unit test expected behavior of submission_moderator API
     version request
     """
     response = client.get(f"/{ROOT}/version")
@@ -27,7 +27,7 @@ def test_api_version(client):
 
 
 def test_api_moderate(client):
-    """Unit test expected behavior of submission_moderator API 
+    """Unit test expected behavior of submission_moderator API
     moderate post request
     """
     response = client.post(

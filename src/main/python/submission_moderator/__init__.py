@@ -30,13 +30,13 @@ def get_submission(
     submission_id: str, redditor: praw.models.Redditor
 ) -> praw.models.Submission:
     f"""Return a praw Submission from a given ID using u/datascience-bot
-    
+
     Args:
         submission_id (str): A reddit base36 submission ID, e.g., `2gmzqe`
-    
+
     Raises:
         NotImplementedError: invalid Submission ID
-    
+
     Returns:
         praw.models.Submission: Submission with corresponding ID
     """

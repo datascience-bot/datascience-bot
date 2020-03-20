@@ -29,4 +29,3 @@ def test_get_submission_501(bob, submission_id):
     """
     with pytest.raises(NotImplementedError):
         result = get_submission(submission_id, bob)
-

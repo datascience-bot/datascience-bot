@@ -13,5 +13,3 @@ def get_datascience_bot():
         client_secret=os.getenv("DATASCIENCE_BOT_CLIENT_SECRET"),
         user_agent="u/datascience-bot",
     )
-
-

@@ -17,7 +17,7 @@ def moderator(redditor):
 
 
 def test_submission_moderator_approves_submissions(moderator, submission):
-    """Unit test expected behavior of SubmissionModerator.moderate 
+    """Unit test expected behavior of SubmissionModerator.moderate
     on submissions which don't break the rules
     """
     assert not (submission.approved is True)

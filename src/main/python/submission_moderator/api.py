@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Configure a REST API endpoint for submission_moderator
 """
 from flask import Flask, jsonify, make_response, request
