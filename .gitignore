@@ -1,3 +1,7 @@
+# ignore local vscode remote container configs
+.devcontainer
+.vs_image_cache
+
 # private environment variables
 .env.sh
 
