@@ -21,7 +21,7 @@
 
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 
-ENV BAZEL_VERSION=2.1.0 \
+ENV BAZEL_VERSION=2.2.0 \
     GOLANG_VERSION=1.13.8 \
     PYTHON_VERSION=3.7.6 \
     PROTOBUF_VERSION=3.6.1 \
