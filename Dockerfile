@@ -97,7 +97,7 @@ RUN make && \
     update-alternatives --config python && \
     update-alternatives --config pip && \
     pip install --upgrade pip && \
-    pip install pre-commit && \
+    pip install pre-commit black && \
     touch /root/WORKSPACE
 
 # Install Golang
