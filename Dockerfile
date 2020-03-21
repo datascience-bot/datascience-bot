@@ -143,7 +143,8 @@ RUN go get -u github.com/gobuffalo/packr/v2/packr2
 RUN (wget -P /tmp https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh) && \
     (chmod +x /tmp/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh) && \
     bash /tmp/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
-    echo "export PATH=$PATH:/usr/lib/go/bin" >> /root/.bashrc
+    echo "export PATH=$PATH:/usr/lib/go/bin" >> /root/.bashrc && \
+    go get github.com/bazelbuild/buildtools/buildifier
 
 # clean
 RUN rm -rf /tmp/* && \
