@@ -4,17 +4,17 @@
 #   First build will take 5-10 minutes. Go make a cup of coffee.
 # ----------------------------------------------------------------------------
 # Who wrote this image?
-#   Mostly sourced from tradingai/bazel so we can update dependencies ourselves 
+#   Mostly sourced from tradingai/bazel so we can update dependencies ourselves
 #   as we choose
 #   https://registry.hub.docker.com/r/tradingai/bazel/dockerfile
 # ----------------------------------------------------------------------------
-# Why use remote containers? 
+# Why use remote containers?
 #   Read https://medium.com/windmill-engineering/bazel-is-the-worst-build-system-except-for-all-the-others-b369396a9e26
-#   tl;dr -- build systems suck when developers have to sync their dev 
-#   environments. Remote containers help solve that problem by standardizing 
+#   tl;dr -- build systems suck when developers have to sync their dev
+#   environments. Remote containers help solve that problem by standardizing
 #   the dev environment.
 # ----------------------------------------------------------------------------
-# What is remote development? 
+# What is remote development?
 #   vscode makes it easy https://code.visualstudio.com/docs/remote/remote-overview
 # ----------------------------------------------------------------------------
 # TODO: move some of this docstring to a CONTRIBUTE.md in the root dir
@@ -95,7 +95,7 @@ RUN make && \
     update-alternatives --config python && \
     update-alternatives --config pip && \
     pip install --upgrade pip && \
-    pip install grpcio numpy && \
+    pip install pre-commit && \
     touch /root/WORKSPACE
 
 # Install Golang
