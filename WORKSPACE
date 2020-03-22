@@ -19,7 +19,7 @@ rules_python_external_version = "b98194454d5fd06828bb3f5bf54fb77ab26b571d"
 
 http_archive(
     name = "rules_python_external",
-    sha256 = "",  # Fill in with correct sha256 of your COMMIT_SHA version
+    sha256 = "90c77f24c93464520481ec5140d416498475568326ba60a049274e85cacaa027",
     strip_prefix = "rules_python_external-{version}".format(version = rules_python_external_version),
     url = "https://github.com/dillon-giacoppo/rules_python_external/archive/{version}.zip".format(version = rules_python_external_version),
 )
