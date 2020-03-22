@@ -9,9 +9,9 @@ http_archive(
 
 load("@rules_python//python:repositories.bzl", "py_repositories")
 
-# # keep `py_repositories` to make it less likely we need to update the
-# # WORKSPACE file, in case this function is changed in the future.
-# # https://github.com/bazelbuild/rules_python/blob/748aa53d7701e71101dfd15d800e100f6ff8e5d1/python/repositories.bzl#L9-L12
+# keep `py_repositories` to make it less likely we need to update the
+# WORKSPACE file, in case this function is changed in the future.
+# https://github.com/bazelbuild/rules_python/blob/748aa53d7701e71101dfd15d800e100f6ff8e5d1/python/repositories.bzl#L9-L12
 py_repositories()
 
 # >>> fetch and define transitive python dependencies ------------------------
