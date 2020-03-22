@@ -21,10 +21,6 @@
 
 FROM ubuntu:18.04
 
-ENV LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8
-
 # TODO: define jdk version here
 # TODO: get versions from shared VERSION file or similar
 ENV BAZEL_VERSION=2.2.0 \
