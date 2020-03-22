@@ -10,10 +10,8 @@ py_library(
 
 py_test(
     name = "test",
-    srcs = ["tests/test_datascience_bot.py"],
-    main = "tests/test_datascience_bot.py",
-    deps = [
-        ":lib",
-        requirement("pytest"),
-    ],
+    srcs = ["tests/test_authpraw.py"],
+    local = True,
+    main = "tests/test_authpraw.py",
+    deps = [":lib"],
 )
