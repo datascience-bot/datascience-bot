@@ -15,8 +15,10 @@ before_install:
   - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ./.env
   - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ./.env
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ./.env
-  - docker build . -t datascience-bot
-  - docker run -d -p 127.0.0.1:80:4567 --env-file=./.env datascience-bot /bin/bash -c "bazel version"
+  - docker build -t datascience-bot/bazel .
+  - docker run -d -p 127.0.0.1:80:4567 --env-file=./.env datascience-bot/bazel /bin/bash -c "bazel version"
+  - docker ps -a
+  - docker run datascience-bot/bazel /bin/bash -c "bazel build //...; bazel test //..."
 script:
   - bazel build //...
   - bazel test //...
