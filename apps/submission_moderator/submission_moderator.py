@@ -128,10 +128,12 @@ class SubmissionClassifier:
         Args:
             submission (praw.models.Submission): Submission to classify
         """
-        self.submission: praw.models.Submission = submission
-        if self.submission.url in self.PORN_DOMAINS:
-            self.is_porn = True
-        if self.submission.url in self.VIDEO_DOMAINS:
-            self.is_video = True
-        if self.submission.url in self.BLOG_DOMAINS:
+        self.submission = submission
+        url = self.submission.url  # for more readable list comprehensions
+
+        if any(blog_domain in url for blog_domain in self.BLOG_DOMAINS):
             self.is_blog = True
+        if any(porn_domain in url for porn_domain in self.PORN_DOMAINS):
+            self.is_porn = True
+        if any(video_domain in url for video_domain in self.VIDEO_DOMAINS):
+            self.is_video = True
