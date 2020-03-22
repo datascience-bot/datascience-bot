@@ -10,7 +10,7 @@ class TestGetUser(unittest.TestCase):
     """Unit test expected behavior to get user profiles
     """
 
-    def test_get_datascience_bot(self):
+    def get_datascience_bot_test(self):
         redditor = get_datascience_bot()
         self.assertEqual(redditor.user.me(), "datascience-bot")
 
