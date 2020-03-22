@@ -10,7 +10,7 @@ py_library(
 )
 
 py_test(
-    name = "test_authpraw",
-    srcs = ["tests/test_authpraw.py"],
+    name = "authpraw_test",
+    srcs = ["tests/authpraw_test.py"],
     deps = [":lib"],
 )
