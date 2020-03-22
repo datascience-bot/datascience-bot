@@ -19,7 +19,7 @@ before_install:
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ./.env
   - docker pull ${IMAGE_TAG}
   # - docker build -t ${IMAGE_TAG} .
-  - docker run -d -p 127.0.0.1:80:4567 --env-file=./.env --volume=${pwd}:${IMAGE_WORKDIR} ${IMAGE_TAG} /bin/bash -c "cd ${IMAGE_WORKDIR}; bazel version"
+  - docker run -d -p 127.0.0.1:80:4567 --env-file=./.env --volume=${pwd}:${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR} ${IMAGE_TAG} /bin/bash -c "bazel version"
   - docker ps -a
 script:
   - docker exec ${IMAGE_TAG} /bin/bash -c "bazel build //..."
