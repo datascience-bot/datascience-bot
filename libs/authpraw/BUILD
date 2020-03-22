@@ -5,13 +5,13 @@ py_library(
     name = "lib",
     srcs = ["authpraw.py"],
     imports = ["."],
+    visibility = ["//visibility:public"],
     deps = [requirement("praw")],
 )
 
 py_test(
     name = "test",
     srcs = ["tests/test_authpraw.py"],
-    local = True,
     main = "tests/test_authpraw.py",
     deps = [":lib"],
 )
