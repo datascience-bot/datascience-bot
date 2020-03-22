@@ -8,18 +8,24 @@
 language: python
 python: "3.7"
 env:
-  - IMAGE_TAG=tradingai/bazel IMAGE_WORKDIR=/workspaces/datascience-bot
+  - IMAGE_TAG=tradingai/bazel IMAGE_WORKDIR=/workspaces/datascience-bot ENV_FILE=.env
 services:
   - docker
 before_install:
   - python --version
-  - echo "DATASCIENCE_BOT_USERNAME=${DATASCIENCE_BOT_USERNAME}" >> ./.env
-  - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ./.env
-  - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ./.env
-  - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ./.env
+  - echo "DATASCIENCE_BOT_USERNAME=${DATASCIENCE_BOT_USERNAME}" >> ${ENV_FILE}
+  - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
+  - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
+  - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
   - docker pull ${IMAGE_TAG}
   # - docker build -t ${IMAGE_TAG} .
-  - docker run -d -p 127.0.0.1:80:4567 --env-file=./.env --volume=${pwd}:${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR} ${IMAGE_TAG} /bin/bash -c "bazel version"
+  - >
+    docker run -d -p 127.0.0.1:80:4567
+    --env-file=${ENV_FILE}
+    --volume=${pwd}:${IMAGE_WORKDIR}
+    --workdir=${IMAGE_WORKDIR}
+    ${IMAGE_TAG}
+    /bin/bash -c "bazel version"
   - docker ps -a
   - export CONTAINER_ID=$(docker ps -q)
 script:
