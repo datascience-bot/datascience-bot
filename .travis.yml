@@ -22,7 +22,7 @@ before_install:
   - >
     docker run -d -p 127.0.0.1:80:4567
     --env-file=${ENV_FILE}
-    --memory=1g
+    --memory=512m
     --memory-swap=10g
     --oom-kill-disable
     --volume=${pwd}:${IMAGE_WORKDIR}
