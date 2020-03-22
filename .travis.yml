@@ -29,5 +29,7 @@ before_install:
   - docker ps -a
   - export CONTAINER_ID=$(docker ps -q)
 script:
-  - docker exec ${CONTAINER_ID} /bin/bash -c "bazel build //..."
-  - docker exec ${CONTAINER_ID} /bin/bash -c "bazel test //..."
+  # Reduce memory usage to avoid docker 137 (out-of-memory) errors
+  # https://docs.bazel.build/versions/2.2.0/memory-saving-mode.html
+  - docker exec ${CONTAINER_ID} /bin/bash -c "bazel build //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
+  - docker exec ${CONTAINER_ID} /bin/bash -c "bazel test //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
