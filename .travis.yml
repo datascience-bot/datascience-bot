@@ -1,3 +1,10 @@
+# TODO: Find a way to shorten build time.
+#   Unfortunately, travis cannot cache docker images. ¯\_(ツ)_/¯
+#   Consider deploying image to dockerhub (only when it changes),
+#   and pulling the image with each build.
+# https://stackoverflow.com/questions/35305492/cache-docker-images-on-travis-ci
+# https://docs.docker.com/registry/recipes/mirror/
+# https://github.com/travis-ci/travis-ci/issues/5358
 language: python
 python: "3.7"
 services:
@@ -9,8 +16,7 @@ before_install:
   - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> .env
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> .env
   - docker build . -t datascience-bot
-  - docker run -d -p 127.0.0.1:80:4567 datascience-bot --env-file=.env /bin/sh -c "bazel version"
-  - rm -rf .env
+  - docker run -d -p 127.0.0.1:80:4567 datascience-bot --env-file=.env /bin/bash -c "bazel version"
 script:
   - bazel build //...
   - bazel test //...
