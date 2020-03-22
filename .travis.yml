@@ -24,6 +24,7 @@ before_install:
     --env-file=${ENV_FILE}
     --memory=1g
     --memory-swap=10g
+    --oom-kill-disable
     --volume=${pwd}:${IMAGE_WORKDIR}
     --workdir=${IMAGE_WORKDIR}
     ${IMAGE_TAG}
