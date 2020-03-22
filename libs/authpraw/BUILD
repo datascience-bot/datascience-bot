@@ -1,4 +1,4 @@
-load("@rules_python//python:defs.bzl", "py_library", "py_test")
+load("@rules_python//python:defs.bzl", "py_library")
 load("@py_deps//:requirements.bzl", "requirement")
 
 py_library(
@@ -7,11 +7,4 @@ py_library(
     imports = ["."],
     visibility = ["//visibility:public"],
     deps = [requirement("praw")],
-)
-
-py_test(
-    name = "test",
-    srcs = ["tests/test_authpraw.py"],
-    main = "tests/test_authpraw.py",
-    deps = [":lib"],
 )
