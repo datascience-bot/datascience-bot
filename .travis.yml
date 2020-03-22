@@ -17,8 +17,8 @@ before_install:
   - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
-  - docker pull ${IMAGE_TAG}
-  # - docker build -t ${IMAGE_TAG} .
+  # - docker pull ${IMAGE_TAG}
+  - docker build -t ${IMAGE_TAG} .
   - >
     docker run -d -p 127.0.0.1:80:4567
     --env-file=${ENV_FILE}
