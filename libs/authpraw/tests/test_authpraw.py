@@ -11,12 +11,8 @@ class TestGetUser(unittest.TestCase):
     """
 
     def test_get_datascience_bot(self):
-        # redditor = get_datascience_bot()
-        # self.assertEqual(redditor.user.me(), "datascience-bot")
-
-        import os
-
-        self.assertEqual(os.getenv("DATASCIENCE_BOT_USERNAME"), "datascience-bot")
+        redditor = get_datascience_bot()
+        self.assertEqual(redditor.user.me(), "datascience-bot")
 
 
 if __name__ == "__main__":
