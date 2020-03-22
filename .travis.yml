@@ -1,4 +1,16 @@
-# language: python
-# python: "3.7"
-# before_install:
-#   - python --version
+language: python
+python: "3.7"
+services:
+  - docker
+before_install:
+  - python --version
+  - echo "DATASCIENCE_BOT_USERNAME=${DATASCIENCE_BOT_USERNAME}" >> .env
+  - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> .env
+  - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> .env
+  - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> .env
+  - docker build . -t datascience-bot
+  - docker run -d -p 127.0.0.1:80:4567 datascience-bot --env-file=.env /bin/sh -c "bazel version"
+  - rm -rf .env
+script:
+  - bazel build //...
+  - bazel test //...
