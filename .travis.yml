@@ -25,7 +25,7 @@ before_install:
     --memory=512m
     --memory-swap=10g
     --oom-kill-disable
-    --volume=${pwd}/datascience-bot:${IMAGE_WORKDIR}
+    --volume=$(pwd)/datascience-bot:${IMAGE_WORKDIR}
     --workdir=${IMAGE_WORKDIR}
     ${IMAGE_TAG}
     /bin/bash -c "bazel version; bazel build //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
