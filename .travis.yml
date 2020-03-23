@@ -21,7 +21,7 @@ script:
 #   https://docs.bazel.build/versions/2.2.0/memory-saving-mode.html
   - >
     docker run
-    --memory=128m --memory-swap=10g --oom-kill-disable
+    --memory=1g --memory-swap=10g --oom-kill-disable
     --env-file=${ENV_FILE}
     --volume=$(pwd):${IMAGE_WORKDIR}
     --workdir=${IMAGE_WORKDIR}
@@ -29,7 +29,7 @@ script:
     /bin/bash -c "bazel build //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
   - >
     docker run
-    --memory=128m --memory-swap=10g --oom-kill-disable
+    --memory=1g --memory-swap=10g --oom-kill-disable
     --env-file=${ENV_FILE}
     --volume=$(pwd):${IMAGE_WORKDIR}
     --workdir=${IMAGE_WORKDIR}
