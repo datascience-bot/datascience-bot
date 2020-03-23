@@ -17,19 +17,20 @@ before_install:
   - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
+  - find . -name WORKSPACE
   # - docker pull ${IMAGE_TAG}
-  - docker build -t ${IMAGE_TAG} .
-  - >
-    docker run
-    --env-file=${ENV_FILE}
-    --memory=512m
-    --memory-swap=10g
-    --oom-kill-disable
-    --volume=$(pwd)/datascience-bot:${IMAGE_WORKDIR}
-    --workdir=${IMAGE_WORKDIR}
-    ${IMAGE_TAG}
-    /bin/bash -c "bazel version; bazel build //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
-  - docker ps -a
+  # - docker build -t ${IMAGE_TAG} .
+  # - >
+  #   docker run
+  #   --env-file=${ENV_FILE}
+  #   --memory=512m
+  #   --memory-swap=10g
+  #   --oom-kill-disable
+  #   --volume=$(pwd)/datascience-bot:${IMAGE_WORKDIR}
+  #   --workdir=${IMAGE_WORKDIR}
+  #   ${IMAGE_TAG}
+  #   /bin/bash -c "bazel version; bazel build //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
+  # - docker ps -a
   # - export CONTAINER_ID=$(docker ps -q)
 # script:
 #   Reduce memory usage to avoid docker 137 (out-of-memory) errors
