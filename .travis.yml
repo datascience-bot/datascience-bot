@@ -15,22 +15,23 @@ before_install:
   - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
-  - ls
   - docker build -t ${IMAGE_TAG} .
+script:
+#   Reduce memory usage to avoid docker 137 (out-of-memory) errors
+#   https://docs.bazel.build/versions/2.2.0/memory-saving-mode.html
   - >
     docker run
-    --detach --interactive --tty
     --memory=128m --memory-swap=10g --oom-kill-disable
     --env-file=${ENV_FILE}
     --volume=$(pwd):${IMAGE_WORKDIR}
     --workdir=${IMAGE_WORKDIR}
     ${IMAGE_TAG}
-    /bin/bash -c "bazel version"
-  - docker ps -a
-  - export CONTAINER_ID=$(docker ps -q)
-  - echo $CONTAINER_ID
-script:
-#   Reduce memory usage to avoid docker 137 (out-of-memory) errors
-#   https://docs.bazel.build/versions/2.2.0/memory-saving-mode.html
-  - docker exec ${CONTAINER_ID} /bin/bash -c "bazel build //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
-  - docker exec ${CONTAINER_ID} /bin/bash -c "bazel test //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
+    /bin/bash -c "bazel build //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
+  - >
+    docker run
+    --memory=128m --memory-swap=10g --oom-kill-disable
+    --env-file=${ENV_FILE}
+    --volume=$(pwd):${IMAGE_WORKDIR}
+    --workdir=${IMAGE_WORKDIR}
+    ${IMAGE_TAG}
+    /bin/bash -c "bazel test //... --discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
