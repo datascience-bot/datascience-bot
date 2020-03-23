@@ -6,7 +6,7 @@
 # https://docs.docker.com/registry/recipes/mirror/
 # https://github.com/travis-ci/travis-ci/issues/5358
 env:
-  - IMAGE_TAG=tradingai/bazel IMAGE_WORKDIR=/workspaces/datascience-bot ENV_FILE=.env
+  - IMAGE_TAG=datascience-bot/travisci IMAGE_WORKDIR=/workspaces/datascience-bot ENV_FILE=.env
 services:
   - docker
 before_install:
@@ -16,8 +16,7 @@ before_install:
   - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
   - ls
-  - docker pull ${IMAGE_TAG}
-  # - docker build -t ${IMAGE_TAG} .
+  - docker build -t ${IMAGE_TAG} .
   - >
     docker run
     --env-file=${ENV_FILE}
