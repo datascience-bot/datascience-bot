@@ -13,7 +13,7 @@ env:
     - BAZEL_FLAGS="--discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
     - IMAGE_TAG=tradingai/bazel
     - IMAGE_WORKDIR=/workspaces/datascience-bot
-    - DOCKER_RUN_FLAGS="--memory=128m --memory-swap=10g --oom-kill-disable --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
+    - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
 services:
   - docker
 before_install:
