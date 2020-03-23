@@ -19,10 +19,12 @@ before_install:
   - docker build -t ${IMAGE_TAG} .
   - >
     docker run
+    --detach
     --env-file=${ENV_FILE}
     --memory=512m
     --memory-swap=10g
     --oom-kill-disable
+    --tty
     --volume=$(pwd):${IMAGE_WORKDIR}
     --workdir=${IMAGE_WORKDIR}
     ${IMAGE_TAG}
