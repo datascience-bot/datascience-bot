@@ -11,7 +11,7 @@ env:
   global:
     - ENV_FILE=.env
     - BAZEL_FLAGS="--discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
-    - IMAGE_TAG=tradingai/bazel
+    - IMAGE_TAG=datascience-bot/dev
     - IMAGE_WORKDIR=/workspaces/datascience-bot
     - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
 services:
@@ -21,7 +21,7 @@ before_install:
   - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
-  - docker pull ${IMAGE_TAG}
+  - docker build -t ${IMAGE_TAG} .
 script:
   - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "bazel build //... ${BAZEL_FLAGS}"
   - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "bazel test //... ${BAZEL_FLAGS}"
