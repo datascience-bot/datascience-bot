@@ -7,15 +7,11 @@
 # https://github.com/travis-ci/travis-ci/issues/5358
 env:
   global:
-    - >
-      IMAGE_TAG=tradingai/bazel
-      IMAGE_WORKDIR=/workspaces/datascience-bot
-      ENV_FILE=.env
-      DOCKER_RUN_FLAGS="--memory=128m --memory-swap=10g --oom-kill-disable --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
-      BAZEL_FLAGS="--discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
-  jobs:
-    - BAZEL_COMMAND="bazel build //..."
-    - BAZEL_COMMAND="bazel test //..."
+    - BAZEL_FLAGS="--discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
+    - DOCKER_RUN_FLAGS="--memory=128m --memory-swap=10g --oom-kill-disable --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
+    - ENV_FILE=.env
+    - IMAGE_TAG=tradingai/bazel
+    - IMAGE_WORKDIR=/workspaces/datascience-bot
 services:
   - docker
 before_install:
@@ -28,4 +24,5 @@ before_install:
 script:
 #   Reduce memory usage to avoid docker 137 (out-of-memory) errors
 #   https://docs.bazel.build/versions/2.2.0/memory-saving-mode.html
-  - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "${BAZEL_COMMAND} ${BAZEL_FLAGS}"
+  - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "bazel build //... ${BAZEL_FLAGS}"
+  - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "bazel test //... ${BAZEL_FLAGS}"
