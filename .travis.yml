@@ -1,7 +1,27 @@
-language: python
-python: "3.7"
+# TODO: Find a way to shorten build time.
+#   Unfortunately, travis cannot cache docker images. ¯\_(ツ)_/¯
+#   Consider deploying image to dockerhub (only when it changes),
+#   and pulling the image with each build.
+#   https://stackoverflow.com/questions/35305492/cache-docker-images-on-travis-ci
+#   https://docs.docker.com/registry/recipes/mirror/
+#   https://github.com/travis-ci/travis-ci/issues/5358
+# Reduce memory usage to avoid docker 137 (out-of-memory) errors
+#   https://docs.bazel.build/versions/2.2.0/memory-saving-mode.html
+env:
+  global:
+    - ENV_FILE=.env
+    - BAZEL_FLAGS="--discard_analysis_cache --nokeep_state_after_build --notrack_incremental_state"
+    - IMAGE_TAG=datascience-bot/dev
+    - IMAGE_WORKDIR=/workspaces/datascience-bot
+    - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
+services:
+  - docker
 before_install:
-  - python --version
-  - ./pants --version  # verify that Pants bootstraps correctly
+  - echo "DATASCIENCE_BOT_USERNAME=${DATASCIENCE_BOT_USERNAME}" >> ${ENV_FILE}
+  - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
+  - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
+  - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
+  - docker build -t ${IMAGE_TAG} .
 script:
-  - "./pants test ::"
+  - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "bazel build //... ${BAZEL_FLAGS}"
+  - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "bazel test //... ${BAZEL_FLAGS}"

@@ -1,0 +1,16 @@
+# environment variables for integration tests
+build --action_env=DATASCIENCE_BOT_USERNAME
+build --action_env=DATASCIENCE_BOT_PASSWORD
+build --action_env=DATASCIENCE_BOT_CLIENT_ID
+build --action_env=DATASCIENCE_BOT_CLIENT_SECRET
+build --test_env=DATASCIENCE_BOT_USERNAME
+build --test_env=DATASCIENCE_BOT_PASSWORD
+build --test_env=DATASCIENCE_BOT_CLIENT_ID
+build --test_env=DATASCIENCE_BOT_CLIENT_SECRET
+
+# disk cache
+fetch --repository_cache=.cache/repository_cache
+build --repository_cache=.cache/repository_cache
+test --repository_cache=.cache/repository_cache
+build --disk_cache=.cache/disk_cache
+test --disk_cache=.cache/disk_cache

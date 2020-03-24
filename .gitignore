@@ -1,14 +1,8 @@
-# ignore local vscode remote container configs
+# local vscode remote container configs
 .devcontainer
-.vs_image_cache
 
-# private environment variables
-.env.sh
-
-# pants helpers
-.pants.d
-.pants.workdir.file_lock
-.pids
+# bazel helpers
+bazel-*
 
 # developer artifacts
 .vscode/
