@@ -9,8 +9,8 @@ build --test_env=DATASCIENCE_BOT_CLIENT_ID
 build --test_env=DATASCIENCE_BOT_CLIENT_SECRET
 
 # disk cache
-fetch --experimental_repository_cache=.cache/experimental_repository_cache
-build --experimental_repository_cache=.cache/experimental_repository_cache
-test --experimental_repository_cache=.cache/experimental_repository_cache
+fetch --repository_cache=.cache/repository_cache
+build --repository_cache=.cache/repository_cache
+test --repository_cache=.cache/repository_cache
 build --disk_cache=.cache/disk_cache
 test --disk_cache=.cache/disk_cache
