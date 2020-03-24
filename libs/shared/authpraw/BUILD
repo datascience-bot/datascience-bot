@@ -3,14 +3,15 @@ load("@py_deps//:requirements.bzl", "requirement")
 
 py_library(
     name = "lib",
-    srcs = ["authpraw.py"],
+    srcs = ["authpraw/__init__.py"],
     imports = ["."],
     visibility = ["//visibility:public"],
     deps = [requirement("praw")],
 )
 
 py_test(
-    name = "authpraw_test",
-    srcs = ["tests/authpraw_test.py"],
+    name = "test",
+    srcs = ["tests/test_authpraw.py"],
+    main = "tests/test_authpraw.py",
     deps = [":lib"],
 )

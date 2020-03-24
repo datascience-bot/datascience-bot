@@ -6,7 +6,7 @@ from flask import Flask, jsonify, make_response, request
 from authpraw import get_datascience_bot
 from submission_moderator import __version__, SubmissionModerator, get_submission
 
-ROOT: str = "submission_moderator"
+ROOT: str = "submission_moderator_app"
 app = Flask(__name__)
 
 
@@ -30,9 +30,3 @@ def post_moderate_submission():
     moderator.moderate(submission)
 
     return "200 OK"
-
-
-if __name__ == "__main__":
-    from waitress import serve
-
-    serve(app, listen="*:8080")
