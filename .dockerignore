@@ -1,0 +1,4 @@
+# reduce build context when building image
+.cache
+.git
+bazel-*
