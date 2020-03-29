@@ -78,6 +78,18 @@ class SubmissionModeratorTest(BaseTestCase):
         self.submission.mod.remove.assert_called_once_with(spam=True)
         self.submission.reply.assert_called_once()
 
+    def test_moderates_trolls(self):
+        """Unit test expected behavior of SubmissionModerator.moderate
+        on submissions by trolls or new redditors
+        """
+        self.submission.author.comment_karma = 10
+        self.submission.author.link_karma = 10
+        self.submission_moderator.moderate(self.submission)
+
+        self.assertTrue(self.submission.mod.approve.called == 0)
+        self.submission.mod.remove.assert_called_once()
+        self.submission.reply.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()
