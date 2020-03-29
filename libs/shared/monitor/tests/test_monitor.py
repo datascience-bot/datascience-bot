@@ -43,6 +43,11 @@ class TestSubmissionMonitor(BaseTestCase, unittest.TestCase):
     def test_stream(self):
         super().test_stream(assert_type=praw.models.Submission)
 
+    def test_new(self):
+        for i, obj in enumerate(self.monitor.new(limit=1)):
+            break
+        self.assertIsInstance(obj, praw.models.Submission)
+
 
 if __name__ == "__main__":
     unittest.main()

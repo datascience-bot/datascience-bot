@@ -36,5 +36,8 @@ class SubmissionMonitor(AbstractMonitor):
     """Monitor submissions on a subreddit
     """
 
+    def new(self, limit: int = 1) -> Generator[praw.models.Submission, None, None]:
+        yield from self.subreddit.new(limit=limit)
+
     def stream(self) -> Generator[praw.models.Submission, None, None]:
         yield from self.subreddit.stream.submissions()
