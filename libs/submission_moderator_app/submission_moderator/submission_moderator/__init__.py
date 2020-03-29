@@ -95,6 +95,7 @@ class SubmissionClassifier:
 
     def __init__(self):
         self.is_porn: bool = False
+        self.is_troll: bool = False
         self.is_video: bool = False
         self.is_blog: bool = False
 
@@ -106,6 +107,10 @@ class SubmissionClassifier:
         """
         self.__init__()
         self.submission = submission
+
+        author = self.submission.author
+        self.is_troll = author.comment_karma + author.link_karma < 50
+
         domain = self.submission.domain  # for more readable list comprehensions
 
         if any(blog_domain == domain for blog_domain in self.BLOG_DOMAINS):

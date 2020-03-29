@@ -27,6 +27,7 @@ class SubmissionClassifierTest(BaseTestCase):
 
         assert self.classifier.is_porn is False
         assert self.classifier.is_video is False
+        assert self.classifier.is_troll is False
         assert self.classifier.is_blog is True
 
     def test_classify_porn(self):
@@ -36,6 +37,7 @@ class SubmissionClassifierTest(BaseTestCase):
         self.classifier.classify(self.submission)
 
         assert self.classifier.is_porn is True
+        assert self.classifier.is_troll is False
         assert self.classifier.is_video is False
         assert self.classifier.is_blog is False
 
@@ -46,6 +48,7 @@ class SubmissionClassifierTest(BaseTestCase):
         self.classifier.classify(self.submission)
 
         assert self.classifier.is_porn is False
+        assert self.classifier.is_troll is False
         assert self.classifier.is_video is True
         assert self.classifier.is_blog is False
 
@@ -56,6 +59,18 @@ class SubmissionClassifierTest(BaseTestCase):
         self.test_classify_blog()
         self.test_classify_porn()
         self.test_classify_video()
+
+    def test_classify_troll(self):
+        """Unit test expected behavior of SubmissionClassifier.classify
+        """
+        self.submission.author.comment_karma = 0
+        self.submission.author.link_karma = 0
+        self.classifier.classify(self.submission)
+
+        assert self.classifier.is_troll is True
+        assert self.classifier.is_porn is False
+        assert self.classifier.is_video is False
+        assert self.classifier.is_blog is False
 
 
 if __name__ == "__main__":
