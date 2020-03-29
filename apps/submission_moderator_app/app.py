@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Stream submissions and moderate continuously
+"""Fetch new submissions and moderate accordingly
 """
 import logging
 
@@ -9,12 +9,22 @@ from monitor import SubmissionMonitor
 from submission_moderator import SubmissionModerator
 
 
+logger = logging.getLogger(__name__)
+handler = logging.StreamHandler()
+formatter = logging.Formatter(
+    fmt="%(asctime)s | %(levelname)s | %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
+)
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
+
 def main():
     reddit = get_datascience_bot()
     monitor = SubmissionMonitor(reddit)
     mod = SubmissionModerator(reddit)
 
-    for submission in monitor.stream():
+    for submission in monitor.new(limit=5):
         msg = (
             f"Moderate '{submission.title}' "
             f"by u/{submission.author.name} "
@@ -26,13 +36,4 @@ def main():
 
 
 if __name__ == "__main__":
-    logger = logging.getLogger(__name__)
-    handler = logging.StreamHandler()
-    handler.setLevel(logging.INFO)
-    formatter = logging.Formatter(
-        fmt="%(asctime)s | %(levelname)s | %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
-    )
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-
     main()
