@@ -3,6 +3,7 @@
 
 # bazel helpers
 bazel-*
+_output
 
 # developer artifacts
 .vscode/
