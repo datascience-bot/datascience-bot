@@ -104,6 +104,7 @@ class SubmissionClassifier:
         Args:
             submission (praw.models.Submission): Submission to classify
         """
+        self.__init__()
         self.submission = submission
         url = self.submission.url  # for more readable list comprehensions
 

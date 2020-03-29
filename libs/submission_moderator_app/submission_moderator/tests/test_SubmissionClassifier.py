@@ -49,6 +49,14 @@ class SubmissionClassifierTest(BaseTestCase):
         assert self.classifier.is_video is True
         assert self.classifier.is_blog is False
 
+    def test_reusability(self):
+        """Unit test expected behavior when class is reused to classify
+        multiple submissions
+        """
+        self.test_classify_blog()
+        self.test_classify_porn()
+        self.test_classify_video()
+
 
 if __name__ == "__main__":
     unittest.main()
