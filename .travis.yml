@@ -16,11 +16,14 @@ env:
 services:
   - docker
 before_install:
-  - echo whoami
+  - whoami
   - echo "DATASCIENCE_BOT_USERNAME=${DATASCIENCE_BOT_USERNAME}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
   - docker build -t ${IMAGE_TAG} .
 script:
+  - ls
   - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "travis-container-script.sh"
+  - ls
+  - ls _output
