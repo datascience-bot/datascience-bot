@@ -7,6 +7,8 @@
 #   https://github.com/travis-ci/travis-ci/issues/5358
 # Reduce memory usage to avoid docker 137 (out-of-memory) errors
 #   https://docs.bazel.build/versions/2.2.0/memory-saving-mode.html
+language: python
+python: "3.7"
 env:
   global:
     - ENV_FILE=.env
@@ -22,8 +24,9 @@ before_install:
   - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
   - docker build -t ${IMAGE_TAG} .
+before_script:
+  - ls
 script:
-  - ls
   - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "travis-container-script.sh"
+after_script:
   - ls
-  - ls _output
