@@ -20,7 +20,7 @@ class SubmissionModeratorTest(BaseTestCase):
         super().setUp()
         del self.submission_moderator
 
-    def test_submission_moderator_approves_submissions(self):
+    def test_approves_submissions(self):
         """Unit test expected behavior of SubmissionModerator.moderate
         on submissions which don't break the rules
         """
@@ -33,7 +33,7 @@ class SubmissionModeratorTest(BaseTestCase):
         self.assertTrue(self.submission.mod.remove.called == 0)
         self.assertTrue(self.submission.reply.called == 0)
 
-    def test_submission_moderator_ignores_approved(self):
+    def test_ignores_approved(self):
         """Unit test expected behavior of SubmissionModerator.moderate
         on submissions which have already been approved
         """
@@ -45,7 +45,7 @@ class SubmissionModeratorTest(BaseTestCase):
         self.assertTrue(self.submission.mod.remove.called == 0)
         self.assertTrue(self.submission.reply.called == 0)
 
-    def test_submission_moderator_moderates_porn(self):
+    def test_moderates_porn(self):
         """Unit test expected behavior of SubmissionModerator.moderate
         on submissions which link to banned porn domains
         """
@@ -56,7 +56,7 @@ class SubmissionModeratorTest(BaseTestCase):
         self.submission.mod.remove.assert_called_once_with(spam=True),
         self.assertTrue(self.submission.reply.called == 0)
 
-    def test_submission_moderator_moderates_videos(self):
+    def test_moderates_videos(self):
         """Unit test expected behavior of SubmissionModerator.moderate
         on submissions which link to banned video hosting domains
         """
@@ -67,7 +67,7 @@ class SubmissionModeratorTest(BaseTestCase):
         self.submission.mod.remove.assert_called_once_with(spam=True),
         self.submission.reply.assert_called_once()
 
-    def test_submission_moderator_moderates_blogs(self):
+    def test_moderates_blogs(self):
         """Unit test expected behavior of SubmissionModerator.moderate
         on submissions which link to banned blog aggregator domains
         """

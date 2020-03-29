@@ -26,30 +26,6 @@ __email__ = "vogt4nick@gmail.com"
 __status__ = "Development"  # one of "Prototype", "Development", "Production"
 
 
-def get_submission(
-    submission_id: str, redditor: praw.models.Redditor
-) -> praw.models.Submission:
-    f"""Return a praw Submission from a given ID using u/datascience-bot
-
-    Args:
-        submission_id (str): A reddit base36 submission ID, e.g., `2gmzqe`
-
-    Raises:
-        NotImplementedError: invalid Submission ID
-
-    Returns:
-        praw.models.Submission: Submission with corresponding ID
-    """
-    submission = redditor.submission(submission_id)
-
-    try:
-        submission.title
-    except NotFound:
-        raise NotImplementedError(f"{submission_id} is not a valid submission ID")
-    else:
-        return submission
-
-
 class SubmissionModerator:
     """Act as a moderator on a submission
     """

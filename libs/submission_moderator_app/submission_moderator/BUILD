@@ -29,17 +29,7 @@ py_test(
         "tests/test_SubmissionModerator.py",
     ],
     deps = [
+        ":lib",
         ":test_SubmissionClassifier",
-        ":lib",
-    ],
-)
-
-py_test(
-    name = "test_get_submission",
-    srcs = ["tests/test_get_submission.py"],
-    deps = [
-        ":lib",
-        "//libs/shared/authpraw:lib",
-        requirement("praw"),
     ],
 )
