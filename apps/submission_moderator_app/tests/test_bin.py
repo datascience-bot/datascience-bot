@@ -57,6 +57,12 @@ class TestLiveScenario(unittest.TestCase):
             title="Porn porn porn", url="https://pornhub.com/",
         )
 
+    def setup_troll_submission(self):
+        return self.alex.subreddit(SUBREDDIT_NAME).submit(
+            title="What should I major in?",
+            selftext="This is just a dummy post. I have nothing more to say.",
+        )
+
     def setup_valid_submission(self):
         return self.charlie.subreddit(SUBREDDIT_NAME).submit(
             title="What's the deal with ML engineering?",
@@ -72,12 +78,13 @@ class TestLiveScenario(unittest.TestCase):
     def test_scenario(self):
         blog = self.setup_blog_submission()
         porn = self.setup_porn_submission()
+        troll = self.setup_troll_submission()
         video = self.setup_video_submission()
         valid = self.setup_valid_submission()
 
         self.execute_bin()
 
-        for banned_submission in (blog, porn, video):
+        for banned_submission in (blog, porn, troll, video):
             mod_view = self.bobby.submission(banned_submission.id)
             self.assertTrue(mod_view.approved is False)
             self.assertTrue(mod_view.spam is True or mod_view.removed is True)
