@@ -22,7 +22,7 @@ class SubmissionClassifierTest(BaseTestCase):
     def test_classify_blog(self):
         """Unit test expected behavior of SubmissionClassifier.classify
         """
-        self.submission.url = "https://medium.com/asdfasdf"
+        self.submission.domain = "medium.com"
         self.classifier.classify(self.submission)
 
         assert self.classifier.is_porn is False
@@ -32,7 +32,7 @@ class SubmissionClassifierTest(BaseTestCase):
     def test_classify_porn(self):
         """Unit test expected behavior of SubmissionClassifier.classify
         """
-        self.submission.url = "https://pornhub.com/asdf"
+        self.submission.domain = "pornhub.com"
         self.classifier.classify(self.submission)
 
         assert self.classifier.is_porn is True
@@ -42,7 +42,7 @@ class SubmissionClassifierTest(BaseTestCase):
     def test_classify_video(self):
         """Unit test expected behavior of SubmissionClassifier.classify
         """
-        self.submission.url = "https://www.youtube.com/watch?v=-qstIEHDVRg"
+        self.submission.domain = "youtube.com"
         self.classifier.classify(self.submission)
 
         assert self.classifier.is_porn is False

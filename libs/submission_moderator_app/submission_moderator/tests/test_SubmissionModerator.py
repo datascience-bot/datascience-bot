@@ -25,7 +25,7 @@ class SubmissionModeratorTest(BaseTestCase):
         on submissions which don't break the rules
         """
         self.assertFalse(self.submission.approved is True)
-        self.assertTrue(len(self.submission.url) > 0)
+        self.assertTrue(len(self.submission.domain) > 0)
 
         self.submission_moderator.moderate(self.submission)
 
@@ -49,7 +49,7 @@ class SubmissionModeratorTest(BaseTestCase):
         """Unit test expected behavior of SubmissionModerator.moderate
         on submissions which link to banned porn domains
         """
-        self.submission.url = "http://pornhub.com"
+        self.submission.domain = "pornhub.com"
         self.submission_moderator.moderate(self.submission)
 
         self.assertTrue(self.submission.mod.approve.called == 0)
@@ -60,7 +60,7 @@ class SubmissionModeratorTest(BaseTestCase):
         """Unit test expected behavior of SubmissionModerator.moderate
         on submissions which link to banned video hosting domains
         """
-        self.submission.url = "http://youtube.com"
+        self.submission.domain = "youtube.com"
         self.submission_moderator.moderate(self.submission)
 
         self.assertTrue(self.submission.mod.approve.called == 0)
@@ -71,7 +71,7 @@ class SubmissionModeratorTest(BaseTestCase):
         """Unit test expected behavior of SubmissionModerator.moderate
         on submissions which link to banned blog aggregator domains
         """
-        self.submission.url = "http://medium.com"
+        self.submission.domain = "medium.com"
         self.submission_moderator.moderate(self.submission)
 
         self.assertTrue(self.submission.mod.approve.called == 0)

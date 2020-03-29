@@ -36,6 +36,6 @@ class BaseTestCase(ABC, unittest.TestCase):
         )
         submission.subreddit = create_autospec(praw.models.Subreddit)
         submission.subreddit.display_name = "not-a-real-subreddit"
-        submission.url = "https://old.reddit.com/"
+        submission.domain = "reddit.com"
 
         return submission

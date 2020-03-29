@@ -106,11 +106,11 @@ class SubmissionClassifier:
         """
         self.__init__()
         self.submission = submission
-        url = self.submission.url  # for more readable list comprehensions
+        domain = self.submission.domain  # for more readable list comprehensions
 
-        if any(blog_domain in url for blog_domain in self.BLOG_DOMAINS):
+        if any(blog_domain == domain for blog_domain in self.BLOG_DOMAINS):
             self.is_blog = True
-        if any(porn_domain in url for porn_domain in self.PORN_DOMAINS):
+        if any(porn_domain == domain for porn_domain in self.PORN_DOMAINS):
             self.is_porn = True
-        if any(video_domain in url for video_domain in self.VIDEO_DOMAINS):
+        if any(video_domain == domain for video_domain in self.VIDEO_DOMAINS):
             self.is_video = True
