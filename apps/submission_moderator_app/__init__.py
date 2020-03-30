@@ -3,20 +3,12 @@
 """
 import logging
 
-from authpraw import get_datascience_bot
-from monitor import SubmissionMonitor
-
-from submission_moderator import SubmissionModerator
+from libs.shared.authpraw import get_datascience_bot
+from libs.shared.monitor import SubmissionMonitor
+from libs.submission_moderator_app.submission_moderator import SubmissionModerator
 
 
 logger = logging.getLogger(__name__)
-handler = logging.StreamHandler()
-formatter = logging.Formatter(
-    fmt="%(asctime)s | %(levelname)s | %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
-)
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-logger.setLevel(logging.INFO)
 
 
 def main():
@@ -33,7 +25,3 @@ def main():
         )
         logger.info(msg)
         mod.moderate(submission)
-
-
-if __name__ == "__main__":
-    main()

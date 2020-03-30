@@ -4,8 +4,12 @@ import subprocess
 from time import sleep
 import unittest
 
-from authpraw import get_datascience_bot, get_SubstantialStrain6, get_b3405920
-
+from apps.submission_moderator_app import main
+from libs.shared.authpraw import (
+    get_datascience_bot,
+    get_SubstantialStrain6,
+    get_b3405920,
+)
 
 SUBREDDIT_NAME = "datascience_bot_dev"
 
@@ -24,7 +28,7 @@ class TestLiveScenario(unittest.TestCase):
             for submission in reddit.user.me().submissions.new():
                 if submission.subreddit.display_name == SUBREDDIT_NAME:
                     print(
-                        f"Delete '{submission.title}' "
+                        f"set up tests: Delete '{submission.title}' "
                         f"by u/{submission.author.name} "
                         f"in r/{submission.subreddit.display_name} "
                         f"({submission.url})"
@@ -41,10 +45,7 @@ class TestLiveScenario(unittest.TestCase):
         del self.charlie
 
     def execute_bin(self):
-        args = ("apps/submission_moderator_app/bin",)
-        popen = subprocess.Popen(args, stdout=subprocess.PIPE)
-        popen.wait()
-        output = popen.stdout.read()
+        main()
 
     def setup_blog_submission(self):
         return self.charlie.subreddit(SUBREDDIT_NAME).submit(

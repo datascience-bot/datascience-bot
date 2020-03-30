@@ -3,7 +3,11 @@
 """
 import unittest
 
-from authpraw import get_datascience_bot, get_SubstantialStrain6, get_b3405920
+from libs.shared.authpraw import (
+    get_datascience_bot,
+    get_SubstantialStrain6,
+    get_b3405920,
+)
 
 
 class TestGetUser(unittest.TestCase):

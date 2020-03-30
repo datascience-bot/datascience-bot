@@ -3,7 +3,7 @@
 """
 import unittest
 
-from submission_moderator import SubmissionClassifier
+from libs.submission_moderator_app.submission_moderator import SubmissionClassifier
 from BaseTestCase import BaseTestCase
 
 

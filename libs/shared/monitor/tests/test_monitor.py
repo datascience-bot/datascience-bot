@@ -7,8 +7,8 @@ import unittest
 
 import praw
 
-from authpraw import get_datascience_bot
-from monitor import CommentMonitor, SubmissionMonitor
+from libs.shared.authpraw import get_datascience_bot
+from libs.shared.monitor import CommentMonitor, SubmissionMonitor
 
 
 class BaseTestCase(abc.ABC):
