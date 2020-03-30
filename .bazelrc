@@ -27,11 +27,6 @@ build --test_env=SUBSTANTIALSTRAIN6_CLIENT_SECRET
 build --test_env=SUBSTANTIALSTRAIN6_PASSWORD
 build --test_env=SUBSTANTIALSTRAIN6_USERNAME
 
-
-# zip python binaries with all runfiles
-build --build_python_zip
-
-
 # disk cache
 fetch --repository_cache=.cache/repository_cache
 build --repository_cache=.cache/repository_cache
