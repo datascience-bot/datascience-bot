@@ -23,6 +23,8 @@ class BaseTestCase(ABC, unittest.TestCase):
     def get_redditor(self):
         redditor = create_autospec(praw.models.Redditor)
         redditor.name = "not-a-real-user"
+        redditor.comment_karma = 100100
+        redditor.link_karma = 100100
 
         return redditor
 
@@ -36,6 +38,6 @@ class BaseTestCase(ABC, unittest.TestCase):
         )
         submission.subreddit = create_autospec(praw.models.Subreddit)
         submission.subreddit.display_name = "not-a-real-subreddit"
-        submission.url = "https://old.reddit.com/"
+        submission.domain = "reddit.com"
 
         return submission

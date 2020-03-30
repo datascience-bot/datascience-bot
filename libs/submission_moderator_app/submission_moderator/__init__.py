@@ -26,33 +26,13 @@ __email__ = "vogt4nick@gmail.com"
 __status__ = "Development"  # one of "Prototype", "Development", "Production"
 
 
-def get_submission(
-    submission_id: str, redditor: praw.models.Redditor
-) -> praw.models.Submission:
-    f"""Return a praw Submission from a given ID using u/datascience-bot
-
-    Args:
-        submission_id (str): A reddit base36 submission ID, e.g., `2gmzqe`
-
-    Raises:
-        NotImplementedError: invalid Submission ID
-
-    Returns:
-        praw.models.Submission: Submission with corresponding ID
-    """
-    submission = redditor.submission(submission_id)
-
-    try:
-        submission.title
-    except NotFound:
-        raise NotImplementedError(f"{submission_id} is not a valid submission ID")
-    else:
-        return submission
-
-
 class SubmissionModerator:
     """Act as a moderator on a submission
     """
+
+    # TODO: Consider aggregating removal reasons and reporting them in a
+    # single comment, that way we don't have to write new responses for
+    # each reason
 
     def __init__(self, redditor: praw.models.Redditor) -> None:
         # TODO: Verify redditor is a mod
@@ -71,14 +51,28 @@ class SubmissionModerator:
         self.classifier.classify(submission)
         c = self.classifier
 
-        if c.is_porn or c.is_video or c.is_blog:
-            submission.mod.remove(spam=True)
+        if c.is_troll:
+            submission.mod.remove()
+            text = (
+                f"Hi u/{submission.author.name}, I removed your submission to "
+                f"r/{submission.subreddit.display_name}.\n\n"
+                "You don't have enough karma to start a new thread, but you "
+                "can post your questions in the Entering and Transitioning "
+                "thread until you accumulate at least "
+                f"{self.classifier.min_karma} karma."
+            )
+            comment = submission.reply(text)
+            comment.mod.distinguish(how="yes", sticky=True)
+
+            return None
 
         if c.is_porn:
+            submission.mod.remove(spam=True)
             # Don't comment; users know porn is inappropriate for the subreddit
             return None
 
         if c.is_video or c.is_blog:
+            submission.mod.remove(spam=True)
             text = (  # TODO: Callout domain explicitly instead of "that domain"
                 f"Hi u/{submission.author.name}, I removed your submission. "
                 f"Submissions from that domain are not allowed on "
@@ -116,11 +110,13 @@ class SubmissionClassifier:
         "extremetube.com",
         "hardsextube.com",
     )
+    min_karma = 50
 
     def __init__(self):
-        self.is_porn: bool = False
-        self.is_video: bool = False
         self.is_blog: bool = False
+        self.is_porn: bool = False
+        self.is_troll: bool = False
+        self.is_video: bool = False
 
     def classify(self, submission: praw.models.Submission) -> None:
         """Classify a submission as one or more labels
@@ -128,12 +124,16 @@ class SubmissionClassifier:
         Args:
             submission (praw.models.Submission): Submission to classify
         """
+        self.__init__()
         self.submission = submission
-        url = self.submission.url  # for more readable list comprehensions
 
-        if any(blog_domain in url for blog_domain in self.BLOG_DOMAINS):
-            self.is_blog = True
-        if any(porn_domain in url for porn_domain in self.PORN_DOMAINS):
-            self.is_porn = True
-        if any(video_domain in url for video_domain in self.VIDEO_DOMAINS):
-            self.is_video = True
+        # for more readable list comprehensions
+        author = self.submission.author
+        domain = self.submission.domain
+
+        self.is_troll = author.comment_karma + author.link_karma < self.min_karma
+        self.is_blog = any(blog_domain == domain for blog_domain in self.BLOG_DOMAINS)
+        self.is_porn = any(porn_domain == domain for porn_domain in self.PORN_DOMAINS)
+        self.is_video = any(
+            video_domain == domain for video_domain in self.VIDEO_DOMAINS
+        )

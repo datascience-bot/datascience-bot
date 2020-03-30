@@ -3,8 +3,7 @@ load("@py_deps//:requirements.bzl", "requirement")
 
 py_library(
     name = "lib",
-    srcs = ["submission_moderator/__init__.py"],
-    imports = ["."],
+    srcs = ["__init__.py"],
     visibility = ["//visibility:public"],
     deps = [
         "//libs/shared/authpraw:lib",
@@ -29,17 +28,7 @@ py_test(
         "tests/test_SubmissionModerator.py",
     ],
     deps = [
+        ":lib",
         ":test_SubmissionClassifier",
-        ":lib",
-    ],
-)
-
-py_test(
-    name = "test_get_submission",
-    srcs = ["tests/test_get_submission.py"],
-    deps = [
-        ":lib",
-        "//libs/shared/authpraw:lib",
-        requirement("praw"),
     ],
 )

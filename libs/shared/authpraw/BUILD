@@ -3,8 +3,7 @@ load("@py_deps//:requirements.bzl", "requirement")
 
 py_library(
     name = "lib",
-    srcs = ["authpraw/__init__.py"],
-    imports = ["."],
+    srcs = ["__init__.py"],
     visibility = ["//visibility:public"],
     deps = [requirement("praw")],
 )
