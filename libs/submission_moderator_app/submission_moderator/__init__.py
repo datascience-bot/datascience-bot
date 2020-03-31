@@ -29,47 +29,59 @@ class SubmissionModerator:
         self.redditor = redditor
         self.classifier = SubmissionClassifier()
 
-    def moderate(self, submission: praw.models.Submission) -> None:
-        self.submission = submission
+    def handle_troll(self):
+        self.submission.mod.remove()
+        text = (
+            f"Hi u/{self.submission.author.name}, I removed your submission to "
+            f"r/{self.submission.subreddit.display_name}.\n\n"
+            "You don't have enough karma to start a new thread, but you "
+            "can post your questions in the Entering and Transitioning "
+            "thread until you accumulate at least "
+            f"{self.classifier.min_karma} karma."
+        )
+        comment = self.submission.reply(text)
+        comment.mod.distinguish(how="yes", sticky=True)
 
-        if self.submission.approved is True:
-            # assume all approved submissions have already been moderated
-            return None
+    def handle_porn(self):
+        # Don't comment; users know porn is inappropriate for the subreddit
+        self.submission.mod.remove(spam=True)
+
+    def handle_video_or_blog(self):
+        self.submission.mod.remove(spam=True)
+        text = (  # TODO: Callout domain explicitly instead of "that domain"
+            f"Hi u/{self.submission.author.name}, I removed your submission. "
+            f"Submissions from that domain are not allowed on "
+            f"r/{self.submission.subreddit.display_name}."
+        )
+        comment = self.submission.reply(text)
+        comment.mod.distinguish(how="yes", sticky=True)
+
+    def enforce_rules(self):
+        submission = self.submission
+        c = self.classifier
 
         # TODO: What if user doesn't have moderator privileges in the
         # submission's subreddit?
-        self.classifier.classify(submission)
-        c = self.classifier
-
-        if c.is_troll:
-            submission.mod.remove()
-            text = (
-                f"Hi u/{submission.author.name}, I removed your submission to "
-                f"r/{submission.subreddit.display_name}.\n\n"
-                "You don't have enough karma to start a new thread, but you "
-                "can post your questions in the Entering and Transitioning "
-                "thread until you accumulate at least "
-                f"{self.classifier.min_karma} karma."
-            )
-            comment = submission.reply(text)
-            comment.mod.distinguish(how="yes", sticky=True)
-
+        if self.classifier.is_troll:
+            self.handle_troll()
             return None
 
         if c.is_porn:
-            submission.mod.remove(spam=True)
-            # Don't comment; users know porn is inappropriate for the subreddit
+            self.handle_porn()
             return None
 
         if c.is_video or c.is_blog:
-            submission.mod.remove(spam=True)
-            text = (  # TODO: Callout domain explicitly instead of "that domain"
-                f"Hi u/{submission.author.name}, I removed your submission. "
-                f"Submissions from that domain are not allowed on "
-                f"r/{submission.subreddit.display_name}."
-            )
-            comment = submission.reply(text)
-            comment.mod.distinguish(how="yes", sticky=True)
+            self.handle_video_or_blog()
             return None
 
         self.submission.mod.approve()
+
+    def moderate(self, submission: praw.models.Submission) -> None:
+        self.submission = submission
+
+        # assume all approved submissions have already been moderated
+        if self.submission.approved is True:
+            return None
+
+        self.classifier.classify(self.submission)
+        self.enforce_rules()
