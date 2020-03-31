@@ -11,6 +11,11 @@ class SubmissionModeratorTest(BaseTestCase):
     """Unit test expected behavior of SubmissionModerator
     """
 
+    def assertReplyAndRemove(self):
+        self.assertTrue(self.submission.mod.approve.called == 0)
+        self.assertTrue(self.submission.mod.remove.called == 1)
+        self.assertTrue(self.submission.reply.called == 1)
+
     def setUp(self):
         super().setUp()
         self.moderator = SubmissionModerator(self.redditor)
@@ -28,7 +33,7 @@ class SubmissionModeratorTest(BaseTestCase):
 
         self.moderator.moderate(self.submission)
 
-        self.submission.mod.approve.assert_called_once()
+        self.assertTrue(self.submission.mod.approve.called == 1)
         self.assertTrue(self.submission.mod.remove.called == 0)
         self.assertTrue(self.submission.reply.called == 0)
 
@@ -44,38 +49,12 @@ class SubmissionModeratorTest(BaseTestCase):
         self.assertTrue(self.submission.mod.remove.called == 0)
         self.assertTrue(self.submission.reply.called == 0)
 
-    def test_moderates_porn(self):
-        """Unit test expected behavior of SubmissionModerator.moderate
-        on submissions which link to banned porn domains
-        """
-        self.submission.domain = "pornhub.com"
-        self.moderator.moderate(self.submission)
+    def test_moderates_banned_link_submissions(self):
+        for domain in ("medium.com", "youtube.com", "pornhub.com"):
+            self.submission.domain = domain
+            self.moderator.moderate(self.submission)
 
-        self.assertTrue(self.submission.mod.approve.called == 0)
-        self.submission.mod.remove.assert_called_once_with(spam=True),
-        self.assertTrue(self.submission.reply.called == 0)
-
-    def test_moderates_videos(self):
-        """Unit test expected behavior of SubmissionModerator.moderate
-        on submissions which link to banned video hosting domains
-        """
-        self.submission.domain = "youtube.com"
-        self.moderator.moderate(self.submission)
-
-        self.assertTrue(self.submission.mod.approve.called == 0)
-        self.submission.mod.remove.assert_called_once_with(spam=True),
-        self.submission.reply.assert_called_once()
-
-    def test_moderates_blogs(self):
-        """Unit test expected behavior of SubmissionModerator.moderate
-        on submissions which link to banned blog aggregator domains
-        """
-        self.submission.domain = "medium.com"
-        self.moderator.moderate(self.submission)
-
-        self.assertTrue(self.submission.mod.approve.called == 0)
-        self.submission.mod.remove.assert_called_once_with(spam=True)
-        self.submission.reply.assert_called_once()
+            self.assertReplyAndRemove()
 
     def test_moderates_trolls(self):
         """Unit test expected behavior of SubmissionModerator.moderate
@@ -85,9 +64,17 @@ class SubmissionModeratorTest(BaseTestCase):
         self.submission.author.link_karma = 10
         self.moderator.moderate(self.submission)
 
-        self.assertTrue(self.submission.mod.approve.called == 0)
-        self.submission.mod.remove.assert_called_once()
-        self.submission.reply.assert_called_once()
+        self.assertReplyAndRemove()
+
+    def test_multiple_removal_reasons(self):
+        self.submission.author.comment_karma = 10
+        self.submission.author.link_karma = 10
+        self.submission.domain = "medium.com"
+
+        self.moderator.moderate(self.submission)
+
+        self.assertReplyAndRemove()
+        self.assertTrue(len(self.moderator.removal_reasons) == 2)
 
 
 if __name__ == "__main__":

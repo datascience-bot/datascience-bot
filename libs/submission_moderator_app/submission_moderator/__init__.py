@@ -20,68 +20,83 @@ class SubmissionModerator:
     """Act as a moderator on a submission
     """
 
-    # TODO: Consider aggregating removal reasons and reporting them in a
-    # single comment, that way we don't have to write new responses for
-    # each reason
+    # TODO: consider decoupling removal reasons from moderator to enforce them
 
     def __init__(self, redditor: praw.models.Redditor) -> None:
         # TODO: Verify redditor is a mod
         self.redditor = redditor
+        self._reset_attributes()
+
+    def _reset_attributes(self):
         self.classifier = SubmissionClassifier()
+        self.removal_reasons = []
+        self.submission = None
 
-    def handle_troll(self):
-        self.submission.mod.remove()
-        text = (
-            f"Hi u/{self.submission.author.name}, I removed your submission to "
-            f"r/{self.submission.subreddit.display_name}.\n\n"
-            "You don't have enough karma to start a new thread, but you "
-            "can post your questions in the Entering and Transitioning "
-            "thread until you accumulate at least "
-            f"{self.classifier.min_karma} karma."
-        )
-        comment = self.submission.reply(text)
-        comment.mod.distinguish(how="yes", sticky=True)
+    def _format_removal_reasons(self):
+        return "\n".join([f"* {rr}" for rr in self.removal_reasons])
 
-    def handle_porn(self):
-        # Don't comment; users know porn is inappropriate for the subreddit
-        self.submission.mod.remove(spam=True)
-
-    def handle_video_or_blog(self):
-        self.submission.mod.remove(spam=True)
-        text = (  # TODO: Callout domain explicitly instead of "that domain"
-            f"Hi u/{self.submission.author.name}, I removed your submission. "
-            f"Submissions from that domain are not allowed on "
-            f"r/{self.submission.subreddit.display_name}."
-        )
-        comment = self.submission.reply(text)
-        comment.mod.distinguish(how="yes", sticky=True)
-
-    def enforce_rules(self):
-        submission = self.submission
-        c = self.classifier
-
-        # TODO: What if user doesn't have moderator privileges in the
-        # submission's subreddit?
+    def _handle_troll(self):
         if self.classifier.is_troll:
-            self.handle_troll()
-            return None
+            min_k = self.classifier.min_karma
+            author = self.submission.author
+            user_k = author.comment_karma + author.link_karma
+            self.removal_reasons.append(
+                "**Not enough karma.** "
+                "You don't have enough karma to start a new thread on "
+                f"{self.submission.subreddit.display_name}, but you can post "
+                "your questions in the Entering and Transitioning thread "
+                f"until you accumulate at least {min_k} karma. "
+                f"Right now you only have {user_k} karma."
+            )
 
-        if c.is_porn:
-            self.handle_porn()
-            return None
+    def _handle_porn(self):
+        if self.classifier.is_porn:
+            self.removal_reasons.append(
+                "**NSFW links are not allowed.** "
+                f"Porn is not allowed on r/{self.submission.subreddit.display_name}."
+            )
 
-        if c.is_video or c.is_blog:
-            self.handle_video_or_blog()
-            return None
+    def _handle_blog(self):
+        if self.classifier.is_blog:
+            self.removal_reasons.append(
+                "**Articles from blog aggregators are not allowed.** "
+                f"Submissions from {self.submission.domain} are not allowed on "
+                f"r/{self.submission.subreddit.display_name}."
+            )
 
-        self.submission.mod.approve()
+    def _handle_video(self):
+        if self.classifier.is_video:
+            self.removal_reasons.append(
+                "**Videos are not allowed.** "
+                f"Submissions from {self.submission.domain} are not allowed on "
+                f"r/{self.submission.subreddit.display_name}."
+            )
+
+    def _handle_rules(self):
+        self._handle_blog()
+        self._handle_porn()
+        self._handle_troll()
+        self._handle_video()
 
     def moderate(self, submission: praw.models.Submission) -> None:
+        self._reset_attributes()
         self.submission = submission
 
-        # assume all approved submissions have already been moderated
         if self.submission.approved is True:
+            # assume all approved submissions have already been moderated
             return None
 
         self.classifier.classify(self.submission)
-        self.enforce_rules()
+        self._handle_rules()
+
+        if self.removal_reasons:
+            preamble = (
+                f"Hi u/{self.submission.author.name}, "
+                "I removed your submission for the following removal reasons:"
+            )
+            text = "\n\n".join([preamble, self._format_removal_reasons()])
+            comment = self.submission.reply(text)
+            comment.mod.distinguish(how="yes", sticky=True)
+            self.submission.mod.remove()
+        else:
+            self.submission.mod.approve()
