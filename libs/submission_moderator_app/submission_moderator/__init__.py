@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-"""Submission Moderator for r/datascience
+"""Submission Moderator
 
-Identify submissions from under-qualified users and links to spam.
+Moderate submissions from new redditors and links to spam.
 
 Usage:
-    >>> import authpraw
+    >>> import libs.shared.authpraw
+    >>> from libs.submission_moderator_app.submission_moderator import SubmissionModerator
     >>> reddit = authpraw.get_datascience_bot()
-    >>> sm = SubmissionModerator(reddit)
+    >>> moderator = SubmissionModerator(reddit)
     >>> submission = reddit.submission("euot0h")
-    >>> sm.moderate(submission)
+    >>> moderator.moderate(submission)
 """
 import praw
 

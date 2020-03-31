@@ -1,4 +1,16 @@
 # -*- coding: utf-8 -*-
+"""Submission Classifier
+
+Classify submissions from under-qualified users and links to spam.
+
+Usage:
+    >>> import libs.shared.authpraw
+    >>> from libs.submission_moderator_app.submission_classifier import SubmissionClassifier
+    >>> reddit = authpraw.get_datascience_bot()
+    >>> classifier = SubmissionClassifier(reddit)
+    >>> submission = reddit.submission("euot0h")
+    >>> classifier.classify(submission)
+"""
 import praw
 
 
