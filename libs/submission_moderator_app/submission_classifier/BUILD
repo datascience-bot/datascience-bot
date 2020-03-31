@@ -4,7 +4,7 @@ load("@py_deps//:requirements.bzl", "requirement")
 py_library(
     name = "lib",
     srcs = ["__init__.py"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:submission_moderator_app"],
     deps = [
         "//libs/shared/authpraw:lib",
         requirement("praw"),
