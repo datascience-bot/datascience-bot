@@ -3,8 +3,8 @@
 """
 import unittest
 
+from libs.shared.pram import BaseTestCase
 from libs.submission_moderator_app.submission_moderator import SubmissionClassifier
-from BaseTestCase import BaseTestCase
 
 
 class SubmissionClassifierTest(BaseTestCase):
