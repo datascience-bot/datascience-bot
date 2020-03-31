@@ -18,31 +18,44 @@ class TestLiveScenario(unittest.TestCase):
     """Simulate a live scenario on r/datascience_bot_dev
     """
 
-    @classmethod
-    def setUpClass(cls):
-        alex = get_SubstantialStrain6()
-        bobby = get_datascience_bot()
-        charlie = get_b3405920()
-
-        for reddit in (alex, bobby, charlie):
-            for submission in reddit.user.me().submissions.new():
-                if submission.subreddit.display_name == SUBREDDIT_NAME:
-                    print(
-                        f"set up tests: Delete '{submission.title}' "
-                        f"by u/{submission.author.name} "
-                        f"in r/{submission.subreddit.display_name} "
-                        f"({submission.url})"
-                    )
-                    submission.delete()
-
     def setUp(self):
         self.alex = get_SubstantialStrain6()
         self.bobby = get_datascience_bot()
         self.charlie = get_b3405920()
+        self.bots = [self.alex, self.bobby, self.charlie]
+
+        print(">>> Set up tests", "-" * 60)
+        self.delete_existing_submissions()
+        self.delete_existing_comments()
+        print("<<< Set up tests", "-" * 60)
 
     def tearDown(self):
         del self.alex
         del self.charlie
+
+    def delete_existing_submissions(self):
+        for reddit in self.bots:
+            for submission in reddit.user.me().submissions.new():
+                if submission.subreddit.display_name == SUBREDDIT_NAME:
+                    print(
+                        f"Delete submission '{submission.title}' "
+                        f"by u/{submission.author.name} "
+                        f"in r/{submission.subreddit.display_name} "
+                        f"({submission.permalink})"
+                    )
+                    submission.delete()
+
+    def delete_existing_comments(self):
+        for reddit in self.bots:
+            for comment in reddit.user.me().comments.new():
+                if comment.subreddit.display_name == SUBREDDIT_NAME:
+                    print(
+                        f"Delete comment '{comment.body}' "
+                        f"by u/{comment.author.name} "
+                        f"in r/{comment.subreddit.display_name} "
+                        f"({comment.permalink})"
+                    )
+                    comment.delete()
 
     def execute_bin(self):
         main()
