@@ -21,8 +21,6 @@ class SubmissionModerator:
     """Act as a moderator on a submission
     """
 
-    # TODO: consider decoupling removal reasons from moderator to enforce them
-
     def __init__(self, redditor: praw.models.Redditor) -> None:
         # TODO: Verify redditor is a mod
         self.redditor = redditor
