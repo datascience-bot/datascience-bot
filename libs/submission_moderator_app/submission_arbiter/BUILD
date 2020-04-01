@@ -6,16 +6,14 @@ py_library(
     srcs = ["__init__.py"],
     visibility = ["//:submission_moderator_app"],
     deps = [
-        "//libs/shared/authpraw:lib",
-        "//libs/submission_moderator_app/submission_arbiter:lib",
         "//libs/submission_moderator_app/submission_classifier:lib",
         requirement("praw"),
     ],
 )
 
 py_test(
-    name = "test_SubmissionModerator",
-    srcs = ["tests/test_SubmissionModerator.py"],
+    name = "test_SubmissionArbiter",
+    srcs = ["tests/test_SubmissionArbiter.py"],
     deps = [
         ":lib",
         "//libs/shared/pram:lib",
