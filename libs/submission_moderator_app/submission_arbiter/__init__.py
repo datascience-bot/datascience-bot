@@ -53,7 +53,7 @@ class SubmissionArbiter:
             self.removal_reasons.append(
                 "**Not enough karma.** "
                 "You don't have enough karma to start a new thread on "
-                f"{submission.subreddit.display_name}, but you can post "
+                f"r/{submission.subreddit.display_name}, but you can post "
                 "your questions in the Entering and Transitioning thread "
                 f"until you accumulate at least {min_k} karma. "
                 f"Right now you only have {user_k} karma."
