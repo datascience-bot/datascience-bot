@@ -69,6 +69,7 @@ class SubmissionArbiter:
             )
 
     def judge(self):
+        self.removal_reasons = []  # avoid duplicate removal reasons
         self.judge_blog()
         self.judge_porn()
         self.judge_troll()
