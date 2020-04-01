@@ -74,7 +74,6 @@ class SubmissionModeratorTest(BaseTestCase):
         self.moderator.moderate(self.submission)
 
         self.assertReplyAndRemove()
-        self.assertTrue(len(self.moderator.removal_reasons) == 2)
 
 
 if __name__ == "__main__":

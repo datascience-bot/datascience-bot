@@ -7,6 +7,7 @@ py_library(
     visibility = ["//:submission_moderator_app"],
     deps = [
         "//libs/shared/authpraw:lib",
+        "//libs/submission_moderator_app/submission_arbiter:lib",
         "//libs/submission_moderator_app/submission_classifier:lib",
         requirement("praw"),
     ],
