@@ -8,7 +8,7 @@ py_library(
     deps = [
         "//libs/shared/authpraw:lib",
         "//libs/shared/monitor:lib",
-        "//libs/submission_moderator_app/submission_moderator:lib",
+        "//libs/submission_moderator_app:lib",
     ],
 )
 

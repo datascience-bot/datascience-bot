@@ -4,8 +4,7 @@
 import unittest
 
 from libs.shared.pram import BaseTestCase
-from libs.submission_moderator_app.submission_arbiter import SubmissionArbiter
-from libs.submission_moderator_app.submission_classifier import SubmissionClassifier
+from libs.submission_moderator_app import SubmissionArbiter, SubmissionClassifier
 
 
 class TestSubmissionArbiter(BaseTestCase):

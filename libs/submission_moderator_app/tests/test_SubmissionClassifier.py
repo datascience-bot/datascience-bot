@@ -4,7 +4,7 @@
 import unittest
 
 from libs.shared.pram import BaseTestCase
-from libs.submission_moderator_app.submission_classifier import SubmissionClassifier
+from libs.submission_moderator_app import SubmissionClassifier
 
 
 class SubmissionClassifierTest(BaseTestCase):
