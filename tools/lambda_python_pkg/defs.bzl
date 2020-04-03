@@ -37,7 +37,7 @@ lambda_python_pkg = rule(
         "out": attr.output(),
         "main": attr.label(mandatory = True, allow_files = True),
         "zipper": attr.label(
-            default = Label("//libs/shared/zipper:bin"),
+            default = Label("//tools/lambda_python_pkg:bin"),
             cfg = "host",
             executable = True,
             allow_files = True,

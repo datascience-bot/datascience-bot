@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 
-from libs.shared.zipper import bundle_files, MIN_EPOCH
+from tools.lambda_python_pkg import bundle_files, MIN_EPOCH
 
 
 def main(args):

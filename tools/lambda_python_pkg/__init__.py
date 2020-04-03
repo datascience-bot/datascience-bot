@@ -30,7 +30,7 @@ def gen_path_loader(path_vars: List[str], strip_prefix):
         else:
             all_path_vars.append(path_var)
 
-    with open("libs/shared/zipper/data/preamble_template.py", "r") as ifile:
+    with open("tools/lambda_python_pkg/data/preamble_template.py", "r") as ifile:
         preamble = ifile.read().format(repr(set(all_path_vars)))
 
     return preamble

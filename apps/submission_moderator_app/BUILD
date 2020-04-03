@@ -1,6 +1,6 @@
 load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
 load("@py_deps//:requirements.bzl", "requirement")
-load("//libs/shared/zipper:defs.bzl", "lambda_python_pkg")
+load("//tools/lambda_python_pkg:defs.bzl", "lambda_python_pkg")
 
 py_library(
     name = "lib",
