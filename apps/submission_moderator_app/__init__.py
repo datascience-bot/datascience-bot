@@ -5,7 +5,7 @@ import logging
 
 from libs.shared.authpraw import get_datascience_bot
 from libs.shared.monitor import SubmissionMonitor
-from libs.submission_moderator_app.submission_moderator import SubmissionModerator
+from libs.submission_moderator_app import SubmissionModerator
 
 
 logger = logging.getLogger(__name__)
