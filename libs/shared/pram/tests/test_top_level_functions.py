@@ -6,12 +6,37 @@ from unittest.mock import Mock
 
 import praw
 
-from libs.shared.pram import mock_redditor, mock_submission, mock_subreddit
+from libs.shared.pram import (
+    mock_comment,
+    mock_redditor,
+    mock_submission,
+    mock_subreddit,
+)
 
 
 class TestTopLevelFunctions(unittest.TestCase):
     def assertIsMock(self, obj):
         self.assertIsInstance(obj, Mock)
+
+    def test_mock_comment(self):
+        comment = mock_comment()
+
+        self.assertIsMock(comment)
+        self.assertIsInstance(comment, praw.models.Comment)
+
+        self.test_mock_redditor(comment.author)
+
+        self.assertIsInstance(comment.approved, bool)
+
+        self.assertIsInstance(comment.mod, praw.models.reddit.comment.CommentModeration)
+
+        self.assertIsInstance(comment.body, str)
+        self.assertTrue(comment.body != "")
+
+        self.assertIsInstance(comment.stickied, bool)
+        self.assertTrue(comment.stickied is False)
+
+        self.test_mock_subreddit(comment.subreddit)
 
     def test_mock_redditor(self, redditor=None):
         if redditor is None:
@@ -40,8 +65,14 @@ class TestTopLevelFunctions(unittest.TestCase):
             submission.mod, praw.models.reddit.submission.SubmissionModeration
         )
 
+        self.assertIsInstance(submission.title, str)
+        self.assertTrue(submission.title != "")
+
         self.assertIsInstance(submission.domain, str)
         self.assertTrue(submission.domain != "")
+
+        self.assertIsInstance(submission.stickied, bool)
+        self.assertTrue(submission.stickied is False)
 
         self.test_mock_subreddit(submission.subreddit)
 

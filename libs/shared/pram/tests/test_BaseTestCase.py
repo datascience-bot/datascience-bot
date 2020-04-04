@@ -10,6 +10,9 @@ from libs.shared.pram import BaseTestCase
 class TestBaseTestCase(BaseTestCase):
     def assertMissingAttributes(self):
         with self.assertRaises(AttributeError):
+            self.comment
+
+        with self.assertRaises(AttributeError):
             self.redditor
 
         with self.assertRaises(AttributeError):
@@ -23,6 +26,9 @@ class TestBaseTestCase(BaseTestCase):
 
     def test_is_unittest(self):
         self.assertIsInstance(self, unittest.TestCase)
+
+    def test_mock_comment(self):
+        self.comment
 
     def test_mock_redditor(self):
         self.redditor
@@ -39,6 +45,7 @@ class TestBaseTestCase(BaseTestCase):
 
         test_case.setUp()
         try:
+            test_case.comment
             test_case.redditor
             test_case.submission
             test_case.subreddit
