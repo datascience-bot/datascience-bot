@@ -15,14 +15,29 @@ import praw
 
 class BaseTestCase(abc.ABC, unittest.TestCase):
     def setUp(self):
+        self.comment = mock_comment()
         self.redditor = mock_redditor()
         self.submission = mock_submission()
         self.subreddit = mock_subreddit()
 
     def tearDown(self):
+        del self.comment
         del self.redditor
         del self.submission
         del self.subreddit
+
+
+def mock_comment() -> Union[Mock, praw.models.Comment]:
+    comment = create_autospec(praw.models.Comment)
+    comment.author = mock_redditor()
+
+    comment.approved = False
+    comment.body = "This comment has body"
+    comment.mod = create_autospec(praw.models.reddit.comment.CommentModeration)
+    comment.stickied = False
+    comment.subreddit = mock_subreddit()
+
+    return comment
 
 
 def mock_redditor() -> Union[Mock, praw.models.Redditor]:
@@ -42,6 +57,8 @@ def mock_submission() -> Union[Mock, praw.models.Submission]:
     submission.mod = create_autospec(praw.models.reddit.submission.SubmissionModeration)
     submission.subreddit = mock_subreddit()
     submission.domain = "thebomb.com"
+    submission.stickied = False
+    submission.title = "This title is thebomb.com"
 
     return submission
 
