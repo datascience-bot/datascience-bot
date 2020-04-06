@@ -7,15 +7,14 @@ py_library(
     srcs = ["__init__.py"],
     deps = [
         "//libs/shared/authpraw:lib",
-        "//libs/shared/monitor:lib",
-        "//libs/submission_moderator_app:lib",
+        "//libs/entering_and_transitioning_app:lib",
     ],
 )
 
 py_test(
     name = "test",
-    srcs = ["tests/test_submission_moderator_app.py"],
-    main = "tests/test_submission_moderator_app.py",
+    srcs = ["tests/test_entering_and_transitioning_app.py"],
+    main = "tests/test_entering_and_transitioning_app.py",
     deps = [
         ":lib",
         "//libs/shared/authpraw:lib",
