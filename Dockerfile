@@ -24,7 +24,7 @@ FROM ubuntu:18.04
 # TODO: define jdk version here
 # TODO: get versions from shared VERSION file or similar
 
-ENV BAZEL_VERSION=2.2.0 \
+ENV BAZEL_VERSION=3.0.0 \
     GOLANG_VERSION=1.13.8 \
     PYTHON_VERSION=3.7.6 \
     PROTOBUF_VERSION=3.6.1 \
