@@ -158,7 +158,7 @@ class SubmissionAuthor:
         title = self.get_title(time)
         selftext = self.get_selftext()
 
-        submission = self.subreddit.submit(title, selftext)
+        submission = self.subreddit.submit(title, selftext, send_replies=False)
         submission.mod.flair(text="Discussion")
         submission.mod.approve()
         submission.mod.distinguish()
