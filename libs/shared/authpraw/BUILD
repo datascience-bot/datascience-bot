@@ -11,6 +11,7 @@ py_library(
 py_test(
     name = "test",
     srcs = ["tests/test_authpraw.py"],
+    flaky = True,  # praw integration can fail
     main = "tests/test_authpraw.py",
     deps = [":lib"],
 )
