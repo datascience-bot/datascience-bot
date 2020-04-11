@@ -11,22 +11,18 @@ language: python
 python: "3.7"
 env:
   global:
-    - ENV_FILE=.env
-    - IMAGE_TAG=datascience-bot/dev
+    - IMAGE_TAG=ubuntu:16.04
     - IMAGE_WORKDIR=/workspaces/datascience-bot
-    - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --detach --tty --interactive --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
+    - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --detach --tty --interactive --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
 services:
   - docker
 before_install:
   - whoami
-  - echo "DATASCIENCE_BOT_USERNAME=${DATASCIENCE_BOT_USERNAME}" >> ${ENV_FILE}
-  - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
-  - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
-  - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
-  - docker build -t ${IMAGE_TAG} .
+  - pwd
+  - docker pull ${IMAGE_TAG}
 before_script:
-  - ls
+  - ls -a
 script:
-  - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "travis-container-script.sh"
+  - docker run ${DOCKER_RUN_FLAGS} ${IMAGE_TAG} /bin/bash -c "touch _output.txt"
 after_script:
-  - ls
+  - ls -a
