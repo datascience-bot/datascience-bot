@@ -16,13 +16,27 @@ language: python
 python: "3.7"
 env:
   global:
+    - ENV_FILE=.env
     - IMAGE_TAG=datascience-bot/dev
     - CONTAINER_NAME=my-container
     - IMAGE_WORKDIR=/workspaces/datascience-bot
-    - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --detach --interactive --tty --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
+    - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --detach --interactive --tty --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
 services:
   - docker
 before_install:
+  - echo "DATASCIENCE_BOT_USERNAME=${DATASCIENCE_BOT_USERNAME}" >> ${ENV_FILE}
+  - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
+  - echo "DATASCIENCE_BOT_CLIENT_ID=${DATASCIENCE_BOT_CLIENT_ID}" >> ${ENV_FILE}
+  - echo "DATASCIENCE_BOT_CLIENT_SECRET=${DATASCIENCE_BOT_CLIENT_SECRET}" >> ${ENV_FILE}
+  - echo "SUBREDDIT_NAME=${SUBREDDIT_NAME}" >> ${ENV_FILE}
+  - echo "SUBSTANTIALSTRAIN6_USERNAME=${SUBSTANTIALSTRAIN6_USERNAME}" >> ${ENV_FILE}
+  - echo "SUBSTANTIALSTRAIN6_PASSWORD=${SUBSTANTIALSTRAIN6_PASSWORD}" >> ${ENV_FILE}
+  - echo "SUBSTANTIALSTRAIN6_CLIENT_ID=${SUBSTANTIALSTRAIN6_CLIENT_ID}" >> ${ENV_FILE}
+  - echo "SUBSTANTIALSTRAIN6_CLIENT_SECRET=${SUBSTANTIALSTRAIN6_CLIENT_SECRET}" >> ${ENV_FILE}
+  - echo "B3405920_USERNAME=${B3405920_USERNAME}" >> ${ENV_FILE}
+  - echo "B3405920_PASSWORD=${B3405920_PASSWORD}" >> ${ENV_FILE}
+  - echo "B3405920_CLIENT_ID=${B3405920_CLIENT_ID}" >> ${ENV_FILE}
+  - echo "B3405920_CLIENT_SECRET=${B3405920_CLIENT_SECRET}" >> ${ENV_FILE}
   - docker build -t ${IMAGE_TAG} .
   - docker run ${DOCKER_RUN_FLAGS} --name=${CONTAINER_NAME} ${IMAGE_TAG}
 before_script:
