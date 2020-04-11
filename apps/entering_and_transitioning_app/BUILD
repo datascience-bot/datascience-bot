@@ -6,14 +6,15 @@ py_library(
     name = "lib",
     srcs = ["__init__.py"],
     deps = [
-        "//libs/shared/authpraw:lib",
         "//libs/entering_and_transitioning_app:lib",
+        "//libs/shared/authpraw:lib",
     ],
 )
 
 py_test(
     name = "test",
     srcs = ["tests/test_entering_and_transitioning_app.py"],
+    flaky = True,  # praw integration can fail
     main = "tests/test_entering_and_transitioning_app.py",
     deps = [
         ":lib",

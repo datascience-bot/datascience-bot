@@ -14,6 +14,7 @@ py_library(
 py_test(
     name = "test",
     srcs = ["tests/test_monitor.py"],
+    flaky = True,  # praw integration can fail
     main = "tests/test_monitor.py",
     deps = [
         ":lib",
