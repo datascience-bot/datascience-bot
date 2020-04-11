@@ -76,6 +76,7 @@ class TestAuthor(BaseTestCase):
         submission.mod.approve.assert_called_once()
         submission.mod.distinguish.assert_called_once()
         submission.mod.sticky.assert_called_once_with(state=True, bottom=True)
+        submission.mod.suggested_sort.assert_called_once_with(sort="new")
 
     def test_get_last_thread(self):
         last_thread = self.submission
