@@ -108,11 +108,13 @@ class SubmissionArbiter:
             min_k = self.classifier.min_karma
             submission = self.classifier.submission
             user_k = submission.author.comment_karma + submission.author.link_karma
+            entering_and_transitioning_thread = "[Entering and Transitioning thread](https://www.reddit.com/r/datascience/search/?q=Weekly%20Entering%20%26%20Transitioning%20Thread&restrict_sr=1&sort=new&t=week)"
+
             self.removal_reasons.append(
                 "**Not enough karma.** "
                 "You don't have enough karma to start a new thread on "
                 f"r/{submission.subreddit.display_name}, but you can post "
-                "your questions in the Entering and Transitioning thread "
+                f"your questions in the {entering_and_transitioning_thread} "
                 f"until you accumulate at least {min_k} karma. "
                 f"Right now you only have {user_k} karma."
             )
