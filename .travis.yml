@@ -45,3 +45,4 @@ script:
   - docker exec ${CONTAINER_NAME} /bin/bash -c ". travis-container-script.sh"
 after_script:
   - ls -a
+  - ls _output -a -R
