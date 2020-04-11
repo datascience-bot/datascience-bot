@@ -60,3 +60,14 @@ deploy:
     zip: _output/submission_moderator_app/lambda_pkg.zip
     # on:
     #   branch: master
+  - provider: lambda
+    region: us-east-1
+    role: arn:aws:iam::491984534845:role/datascience-bot-travis-ci
+    runtime: python3.7
+    function_name: datascience-bot-entering-and-transitioning-app-test
+    module_name: lambda_function
+    handler_name: lambda_handler
+    timeout: 60
+    zip: _output/entering_and_transitioning_app/lambda_pkg.zip
+    # on:
+    #   branch: master
