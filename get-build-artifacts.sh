@@ -9,10 +9,7 @@ mkdir -p $SUBMISSION_MODERATOR_APP_DIR
 mkdir -p $ENTERING_AND_TRANSITIONING_APP_DIR
 
 bazel build //... ${BAZEL_FLAGS}
-bazel test //... ${BAZEL_FLAGS}
 
-# make binaries available to volume mounted to docker container
+# make artifacts available to volume mounted to docker container
 cp -f -r bazel-bin/apps/submission_moderator_app/lambda_pkg.zip ${SUBMISSION_MODERATOR_APP_DIR}/lambda_pkg.zip
 cp -f -r bazel-bin/apps/entering_and_transitioning_app/lambda_pkg.zip ${ENTERING_AND_TRANSITIONING_APP_DIR}/lambda_pkg.zip
-
-bazel clean
