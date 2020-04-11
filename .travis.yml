@@ -14,7 +14,7 @@ env:
     - ENV_FILE=.env
     - IMAGE_TAG=datascience-bot/dev
     - IMAGE_WORKDIR=/workspaces/datascience-bot
-    - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --attach --tty --interactive --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
+    - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --attach --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
 services:
   - docker
 before_install:
