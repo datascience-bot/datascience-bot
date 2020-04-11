@@ -163,6 +163,7 @@ class SubmissionAuthor:
         submission.mod.approve()
         submission.mod.distinguish()
         submission.mod.sticky(state=True, bottom=True)
+        submission.mod.suggested_sort(sort="new")
 
         return submission
 
