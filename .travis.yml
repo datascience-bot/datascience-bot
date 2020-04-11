@@ -53,7 +53,7 @@ deploy:
     region: us-east-1
     role: arn:aws:iam::491984534845:role/datascience-bot-travis-ci
     runtime: python3.7
-    function_name: datascience-bot-submission-moderator-test
+    function_name: datascience-bot-submission-moderator
     module_name: lambda_function
     handler_name: lambda_handler
     timeout: 30
@@ -64,7 +64,7 @@ deploy:
     region: us-east-1
     role: arn:aws:iam::491984534845:role/datascience-bot-travis-ci
     runtime: python3.7
-    function_name: datascience-bot-entering-and-transitioning-app-test
+    function_name: datascience-bot-entering-and-transitioning-app
     module_name: lambda_function
     handler_name: lambda_handler
     timeout: 60
