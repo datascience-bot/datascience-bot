@@ -13,20 +13,15 @@
 #   tl;dr -- build systems suck when developers have to sync their dev
 #   environments. Remote containers help solve that problem by standardizing
 #   the dev environment.
-# ----------------------------------------------------------------------------
-# What is remote development?
-#   vscode makes it easy https://code.visualstudio.com/docs/remote/remote-overview
-# ----------------------------------------------------------------------------
-# TODO: move some of this docstring to a CONTRIBUTE.md in the root dir
 
-FROM ubuntu:18.04
+FROM library/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c928f937bec69836320
 
 # TODO: define jdk version here
 # TODO: get versions from shared VERSION file or similar
 
 ENV BAZEL_VERSION=3.0.0 \
     GOLANG_VERSION=1.13.8 \
-    PYTHON_VERSION=3.7.6 \
+    PYTHON_VERSION=3.7.7 \
     PROTOBUF_VERSION=3.6.1 \
     NODEJS_VERSION=12
 
@@ -161,11 +156,9 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/local/python3/bi
     update-alternatives --config python3 && \
     update-alternatives --config pip3
 
-# dirs for bazel build
-RUN mkdir -p /root/cache/bazel && \
-    mkdir -p /root/output
-
 # https://github.com/pypa/pip/issues/4924
 RUN mv /usr/bin/lsb_release /usr/bin/lsb_release.bak
+
+WORKDIR /workspaces/datascience-bot
 
 CMD ["/bin/bash"]

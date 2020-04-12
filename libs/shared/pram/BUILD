@@ -12,13 +12,17 @@ py_library(
 
 py_test(
     name = "test_BaseTestCase",
+    timeout = "short",
     srcs = ["tests/test_BaseTestCase.py"],
+    local = True,
     deps = [":lib"],
 )
 
 py_test(
     name = "test_top_level_functions",
+    timeout = "short",
     srcs = ["tests/test_top_level_functions.py"],
+    local = True,
     deps = [
         ":lib",
         requirement("praw"),

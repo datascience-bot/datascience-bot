@@ -12,8 +12,8 @@
 #     --detach --interactive --tty
 #   Keep memory usage in check
 #     --memory=1g --memory-swap=10g --oom-kill-disable
-language: python
-python: "3.7"
+services:
+  - docker
 env:
   global:
     - ENV_FILE=.env
@@ -21,8 +21,6 @@ env:
     - CONTAINER_NAME=my-container
     - IMAGE_WORKDIR=/workspaces/datascience-bot
     - DOCKER_RUN_FLAGS="--memory=1g --memory-swap=10g --oom-kill-disable --detach --interactive --tty --env-file=${ENV_FILE} --volume=$(pwd):${IMAGE_WORKDIR} --workdir=${IMAGE_WORKDIR}"
-services:
-  - docker
 before_install:
   - echo "DATASCIENCE_BOT_USERNAME=${DATASCIENCE_BOT_USERNAME}" >> ${ENV_FILE}
   - echo "DATASCIENCE_BOT_PASSWORD=${DATASCIENCE_BOT_PASSWORD}" >> ${ENV_FILE}
@@ -44,7 +42,7 @@ before_script:
 script:
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bazel build //..."
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bazel test //..."
-  - docker exec ${CONTAINER_NAME} /bin/bash -c ". get-build-artifacts.sh"
+  - docker exec ${CONTAINER_NAME} /bin/bash -c "bash get-build-artifacts.sh"
 after_script:
   - ls -a
   - ls _output -a -R

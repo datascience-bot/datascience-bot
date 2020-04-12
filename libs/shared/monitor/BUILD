@@ -13,8 +13,10 @@ py_library(
 
 py_test(
     name = "test",
+    timeout = "short",
     srcs = ["tests/test_monitor.py"],
     flaky = True,  # praw integration can fail
+    local = False,
     main = "tests/test_monitor.py",
     deps = [
         ":lib",
