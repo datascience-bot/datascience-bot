@@ -42,7 +42,7 @@ before_script:
 script:
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bazel build //..."
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bazel test //..."
-  - docker exec ${CONTAINER_NAME} /bin/bash -c ". get-build-artifacts.sh"
+  - docker exec ${CONTAINER_NAME} /bin/bash -c "bash get-build-artifacts.sh"
 after_script:
   - ls -a
   - ls _output -a -R
