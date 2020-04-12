@@ -161,10 +161,6 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/local/python3/bi
     update-alternatives --config python3 && \
     update-alternatives --config pip3
 
-# dirs for bazel build
-RUN mkdir -p /root/cache/bazel && \
-    mkdir -p /root/output
-
 # https://github.com/pypa/pip/issues/4924
 RUN mv /usr/bin/lsb_release /usr/bin/lsb_release.bak
 
