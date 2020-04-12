@@ -10,7 +10,9 @@ py_library(
 
 py_test(
     name = "test_SubmissionArbiter",
+    timeout = "short",
     srcs = ["tests/test_SubmissionArbiter.py"],
+    local = True,
     deps = [
         ":lib",
         "//libs/shared/pram:lib",
@@ -19,7 +21,9 @@ py_test(
 
 py_test(
     name = "test_SubmissionClassifier",
+    timeout = "short",
     srcs = ["tests/test_SubmissionClassifier.py"],
+    local = True,
     deps = [
         ":lib",
         "//libs/shared/pram:lib",
@@ -28,7 +32,9 @@ py_test(
 
 py_test(
     name = "test_SubmissionModerator",
+    timeout = "short",
     srcs = ["tests/test_SubmissionModerator.py"],
+    local = True,
     deps = [
         ":lib",
         "//libs/shared/pram:lib",

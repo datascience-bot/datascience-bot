@@ -13,8 +13,10 @@ py_library(
 
 py_test(
     name = "test",
+    timeout = "short",
     srcs = ["tests/test_entering_and_transitioning_app.py"],
     flaky = True,  # praw integration can fail
+    local = False,
     main = "tests/test_entering_and_transitioning_app.py",
     deps = [
         ":lib",

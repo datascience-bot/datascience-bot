@@ -11,8 +11,10 @@ py_library(
 
 py_test(
     name = "test_SubmissionAuthor",
+    timeout = "short",
     srcs = ["tests/test_SubmissionAuthor.py"],
     data = ["data/selftext.md"],
+    local = True,
     main = "tests/test_SubmissionAuthor.py",
     deps = [
         ":lib",
@@ -23,7 +25,9 @@ py_test(
 
 py_test(
     name = "test_CommentRemediator",
+    timeout = "short",
     srcs = ["tests/test_CommentRemediator.py"],
+    local = True,
     main = "tests/test_CommentRemediator.py",
     deps = [
         ":lib",
@@ -34,7 +38,9 @@ py_test(
 
 py_test(
     name = "test_validation",
+    timeout = "short",
     srcs = ["tests/test_validation.py"],
+    local = True,
     main = "tests/test_validation.py",
     deps = [
         ":lib",
