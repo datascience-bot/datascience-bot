@@ -19,7 +19,7 @@
 # ----------------------------------------------------------------------------
 # TODO: move some of this docstring to a CONTRIBUTE.md in the root dir
 
-FROM ubuntu:18.04
+FROM library/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c928f937bec69836320
 
 # TODO: define jdk version here
 # TODO: get versions from shared VERSION file or similar
