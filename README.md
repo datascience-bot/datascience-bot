@@ -6,6 +6,7 @@
 
 The monorepo for u/datascience-bot's features, components, and architecture. [u/datascience-bot](https://reddit.com/user/datascience-bot) moderates [r/datascience](https://reddit.com/r/datascience).
 
+
 ## Contributing
 
-We're not currently encouraging unrestricted contributions of u/datascience-bot, but we will in the near future!
+Please review our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines to contribute to the project.

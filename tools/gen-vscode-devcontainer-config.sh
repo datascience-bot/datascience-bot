@@ -19,7 +19,7 @@ cat > $DEVCONTAINER_JSON << EOF
     "context": "..",
     "runArgs": [
         "--volume",
-        "~/.cache/vscode/remote-container/datascience-bot/.vscode-server:/root/.vscode-server",
+        "/REPLACE/PATH/TO/.cache/vscode/remote-container/datascience-bot/.vscode-server:/root/.vscode-server",
         "--env-file",
         "${ENV_FILE}"
     ],
@@ -29,11 +29,15 @@ cat > $DEVCONTAINER_JSON << EOF
         "eamodio.gitlens",
         "ms-azuretools.vscode-docker",
         "ms-python.python",
+        "njpwerner.autodocstring",
+        "redhat.vscode-yaml",
         "sonarsource.sonarlint-vscode",
+        "visualstudioexptteam.vscodeintellicode",
         "vscjava.vscode-java-pack"
     ]
 }
 EOF
+echo "Created ${DEVCONTAINER_JSON}"
 fi
 
 if [ -e $ENV_FILE ]
@@ -60,4 +64,5 @@ B3405920_PASSWORD=
 B3405920_CLIENT_ID=
 B3405920_CLIENT_SECRET=
 EOF
+echo "Created ${ENV_FILE}"
 fi
