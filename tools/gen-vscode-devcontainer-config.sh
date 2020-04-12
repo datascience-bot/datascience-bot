@@ -34,6 +34,7 @@ cat > $DEVCONTAINER_JSON << EOF
     ]
 }
 EOF
+echo "Created ${DEVCONTAINER_JSON}"
 fi
 
 if [ -e $ENV_FILE ]
@@ -60,4 +61,5 @@ B3405920_PASSWORD=
 B3405920_CLIENT_ID=
 B3405920_CLIENT_SECRET=
 EOF
+echo "Created ${ENV_FILE}"
 fi
