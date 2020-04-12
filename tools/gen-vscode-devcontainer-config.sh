@@ -29,7 +29,10 @@ cat > $DEVCONTAINER_JSON << EOF
         "eamodio.gitlens",
         "ms-azuretools.vscode-docker",
         "ms-python.python",
+        "njpwerner.autodocstring",
+        "redhat.vscode-yaml",
         "sonarsource.sonarlint-vscode",
+        "visualstudioexptteam.vscodeintellicode",
         "vscjava.vscode-java-pack"
     ]
 }
