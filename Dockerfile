@@ -13,11 +13,6 @@
 #   tl;dr -- build systems suck when developers have to sync their dev
 #   environments. Remote containers help solve that problem by standardizing
 #   the dev environment.
-# ----------------------------------------------------------------------------
-# What is remote development?
-#   vscode makes it easy https://code.visualstudio.com/docs/remote/remote-overview
-# ----------------------------------------------------------------------------
-# TODO: move some of this docstring to a CONTRIBUTE.md in the root dir
 
 FROM library/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c928f937bec69836320
 
