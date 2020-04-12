@@ -19,7 +19,7 @@ cat > $DEVCONTAINER_JSON << EOF
     "context": "..",
     "runArgs": [
         "--volume",
-        "~/.cache/vscode/remote-container/datascience-bot/.vscode-server:/root/.vscode-server",
+        "/REPLACE/PATH/TO/.cache/vscode/remote-container/datascience-bot/.vscode-server:/root/.vscode-server",
         "--env-file",
         "${ENV_FILE}"
     ],
