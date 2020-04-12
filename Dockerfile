@@ -168,4 +168,6 @@ RUN mkdir -p /root/cache/bazel && \
 # https://github.com/pypa/pip/issues/4924
 RUN mv /usr/bin/lsb_release /usr/bin/lsb_release.bak
 
+WORKDIR /workspaces/datascience-bot
+
 CMD ["/bin/bash"]
