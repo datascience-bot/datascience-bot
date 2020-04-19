@@ -1,2 +1,5 @@
-pandas == 1.0.3
-praw   == 6.5.1
+joblib       == 0.14.1
+pandas       == 1.0.3
+praw         == 6.5.1
+numpy        == 1.18.2
+scikit-learn == 0.22.1
