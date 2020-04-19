@@ -65,7 +65,7 @@ deploy:
     function_name: datascience-bot-entering-and-transitioning-app
     module_name: lambda_function
     handler_name: lambda_handler
-    timeout: 60
+    timeout: 300
     zip: _output/entering_and_transitioning_app/lambda_pkg.zip
     on:
       tags: true
