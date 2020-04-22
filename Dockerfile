@@ -19,7 +19,7 @@ FROM library/ubuntu:18.04@sha256:e5dd9dbb37df5b731a6688fa49f4003359f6f126958c9c9
 # TODO: define jdk version here
 # TODO: get versions from shared VERSION file or similar
 
-ENV BAZEL_VERSION=3.0.0 \
+ENV BAZEL_VERSION=3.1.0 \
     GOLANG_VERSION=1.13.8 \
     PYTHON_VERSION=3.7.7 \
     PROTOBUF_VERSION=3.6.1 \
