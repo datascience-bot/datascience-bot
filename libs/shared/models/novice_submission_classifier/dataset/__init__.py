@@ -39,12 +39,13 @@ def _cache_submissions(func):
     def wrapper(submission: praw.models.Submission):
         p = pathlib.Path(JSON_CACHE) / f"{submission.id}.json"
         if p.exists():
-            return jsonlib.load(p.open("r"))
+            return jsonlib.loads(p.read_text())
 
         entry = func(submission)
 
         p.parent.mkdir(parents=True, exist_ok=True)
-        jsonlib.dump(entry, p.open("w"))
+        with p.open('w') as ofile:
+            jsonlib.dump(entry, ofile)
 
         return entry
 

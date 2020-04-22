@@ -36,7 +36,10 @@ class TestMakeDataset(BaseTestCase):
     def setUpClass(cls):
         super().setUpClass()
         bob = get_datascience_bot()
-        cls.dataset = make_dataset(bob, limit=1)
+        # note: we aren't guaranteed to get results,
+        # but it's more likely the higher the limit is.
+        # limit=5 turns out to be a good balance
+        cls.dataset = make_dataset(bob, limit=5)
 
     def test_dataset_schema(self):
         dataset = self.dataset.reset_index()
