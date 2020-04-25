@@ -49,6 +49,7 @@ after_script:
 deploy:
   - provider: script
     script: _output/wiki_moderator_app/bin
+    skip_cleanup: true
     on:
       all_branches: true
     # TODO remove all_branches, require tags before approving PR
