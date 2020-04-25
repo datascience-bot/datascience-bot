@@ -10,10 +10,14 @@ Usage:
     wiki/getting-started....UPDATED
 """
 from collections import defaultdict
+import os
 import pathlib
 from typing import DefaultDict, Optional
 
 import praw
+
+
+SUBREDDIT_NAME: str = os.getenv("SUBREDDIT_NAME")
 
 
 def get_local_wiki(parent_dir: pathlib.Path) -> DefaultDict[str, Optional[str]]:
@@ -33,7 +37,9 @@ def get_local_wiki(parent_dir: pathlib.Path) -> DefaultDict[str, Optional[str]]:
 
     # TODO what about nested wiki pages? e.g. config directories
     for p in parent_dir.glob("*.md"):
-        local_wiki[p.stem] = p.read_text()
+        # reddit wiki pages always fall under a directory, e.g. datascience/index
+        name = f"{SUBREDDIT_NAME}/{p.stem}"
+        local_wiki[name] = p.read_text()
 
     return local_wiki
 
@@ -57,7 +63,7 @@ def create_missing_wikipages(
     local_wiki: DefaultDict[str, Optional[str]],
 ):
     for name, content in local_wiki.items():
-        remote_wiki.create(name, content=content)
+        remote_wiki.create(name=name, content=content)
 
 
 def update_wikipage(remote_wikipage: praw.models.WikiPage, local_md: str) -> None:

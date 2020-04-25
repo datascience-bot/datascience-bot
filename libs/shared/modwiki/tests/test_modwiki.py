@@ -1,6 +1,7 @@
 """Unit test modwiki module
 """
 from collections import defaultdict
+import os
 import pathlib
 import unittest
 from unittest.mock import Mock, create_autospec
@@ -15,6 +16,9 @@ from libs.shared.modwiki import (
     update_wikipage,
     update_wiki,
 )
+
+
+SUBREDDIT_NAME = os.getenv("SUBREDDIT_NAME")
 
 
 class TestModWiki(BaseTestCase):
@@ -40,9 +44,11 @@ class TestModWiki(BaseTestCase):
 
         self.assertIsInstance(local_wiki, defaultdict)
 
-        self.assertTrue("index" in local_wiki.keys())
-        self.assertIsInstance(local_wiki["index"], str)
-        self.assertTrue(len(local_wiki["index"]) > 0)
+        index_name = f"{SUBREDDIT_NAME}/index"
+
+        self.assertTrue(index_name in local_wiki.keys())
+        self.assertIsInstance(local_wiki[index_name], str)
+        self.assertTrue(len(local_wiki[index_name]) > 0)
 
         missing_page = "arbitrary name!"
         self.assertTrue(missing_page not in local_wiki.keys())
