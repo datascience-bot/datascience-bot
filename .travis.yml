@@ -12,8 +12,6 @@
 #     --detach --interactive --tty
 #   Keep memory usage in check
 #     --memory=1g --memory-swap=10g --oom-kill-disable
-language: python  # required to run binaries outside container in deploy phase
-python: "3.7"
 services: docker
 env:
   global:
@@ -49,8 +47,7 @@ after_script:
   - ls _output -a
 deploy:
   - provider: script
-    script: _output/wiki_moderator_app/bin
-    skip_cleanup: true
+    script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/wiki_moderator_app:bin"
     on:
       all_branches: true
     # TODO remove all_branches, require tags before approving PR
