@@ -4,11 +4,16 @@
 - u/SubstantialStrain6
 - u/b3405920
 """
+import logging
 import os
 import praw
 
 
+logger = logging.getLogger(__name__)
+
+
 def get_datascience_bot():
+    logger.info("Authenticate u/datascience-bot")
     return praw.Reddit(
         username=os.getenv("DATASCIENCE_BOT_USERNAME"),
         password=os.getenv("DATASCIENCE_BOT_PASSWORD"),
@@ -19,6 +24,7 @@ def get_datascience_bot():
 
 
 def get_SubstantialStrain6():
+    logger.info("Authenticate u/SubstantialStrain6")
     return praw.Reddit(
         username=os.getenv("SUBSTANTIALSTRAIN6_USERNAME"),
         password=os.getenv("SUBSTANTIALSTRAIN6_PASSWORD"),
@@ -29,6 +35,7 @@ def get_SubstantialStrain6():
 
 
 def get_b3405920():
+    logger.info("Authenticate u/b3405920")
     return praw.Reddit(
         username=os.getenv("B3405920_USERNAME"),
         password=os.getenv("B3405920_PASSWORD"),
