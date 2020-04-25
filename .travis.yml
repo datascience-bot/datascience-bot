@@ -47,6 +47,11 @@ after_script:
   - ls -a
   - ls _output -a -R
 deploy:
+  - provider: script
+    script: _output/wiki_moderator_app/bin
+    # TODO require tags before merging to master deployment
+    # on:
+    #   tags: true
   - provider: lambda
     region: us-east-1
     role: arn:aws:iam::491984534845:role/datascience-bot-travis-ci
