@@ -10,6 +10,7 @@ Usage:
     wiki/getting-started....UPDATED
 """
 from collections import defaultdict
+import logging
 import os
 import pathlib
 from typing import DefaultDict, Optional
@@ -18,6 +19,9 @@ import praw
 
 
 SUBREDDIT_NAME: str = os.getenv("SUBREDDIT_NAME")
+
+
+logger = logging.getLogger(__name__)
 
 
 def get_local_wiki(parent_dir: pathlib.Path) -> DefaultDict[str, Optional[str]]:
@@ -91,5 +95,6 @@ def update_wiki(
     create_missing_wikipages(remote_wiki, local_wiki)
 
     for wikipage in remote_wiki:
+        logger.info(f"Update wikipage {wikipage.name}")
         content = local_wiki[wikipage.name]
         update_wikipage(wikipage, local_md=content)
