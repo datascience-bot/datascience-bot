@@ -42,16 +42,11 @@ script:
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bazel build //..."
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bazel test //... --jobs=1"
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bash get-build-artifacts.sh"
-after_script:
-  - ls -a
-  - ls _output -a
 deploy:
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/wiki_moderator_app:bin"
     on:
-      all_branches: true
-    # TODO remove all_branches, require tags before approving PR
-    #   tags: true
+      tags: true
   - provider: lambda
     region: us-east-1
     role: arn:aws:iam::491984534845:role/datascience-bot-travis-ci
