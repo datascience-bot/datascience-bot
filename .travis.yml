@@ -47,7 +47,7 @@ deploy:
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/wiki_moderator_app:bin datascience_bot_dev"
     on:
-      condition: $TRAVIS_BRANCH != master
+      branch: master
   # deploy wiki to r/datascience
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/wiki_moderator_app:bin datascience"
