@@ -44,7 +44,7 @@ class TestModWiki(BaseTestCase):
 
         self.assertIsInstance(local_wiki, defaultdict)
 
-        index_name = f"{SUBREDDIT_NAME}/index"
+        index_name = "index"
 
         self.assertTrue(index_name in local_wiki.keys())
         self.assertIsInstance(local_wiki[index_name], str)

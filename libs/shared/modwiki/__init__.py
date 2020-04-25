@@ -41,9 +41,7 @@ def get_local_wiki(parent_dir: pathlib.Path) -> DefaultDict[str, Optional[str]]:
 
     # TODO what about nested wiki pages? e.g. config directories
     for p in parent_dir.glob("*.md"):
-        # reddit wiki pages always fall under a directory, e.g. datascience/index
-        name = f"{SUBREDDIT_NAME}/{p.stem}"
-        local_wiki[name] = p.read_text()
+        local_wiki[p.stem] = p.read_text()
 
     return local_wiki
 
