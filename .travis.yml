@@ -49,8 +49,9 @@ after_script:
 deploy:
   - provider: script
     script: _output/wiki_moderator_app/bin
-    # TODO require tags before merging to master deployment
-    # on:
+    on:
+      all_branches: true
+    # TODO remove all_branches, require tags before approving PR
     #   tags: true
   - provider: lambda
     region: us-east-1
