@@ -5,10 +5,7 @@ py_library(
     name = "lib",
     srcs = ["__init__.py"],
     visibility = ["//visibility:public"],
-    deps = [
-        "//libs/shared/authpraw:lib",
-        requirement("praw"),
-    ],
+    deps = [requirement("praw")],
 )
 
 py_test(
