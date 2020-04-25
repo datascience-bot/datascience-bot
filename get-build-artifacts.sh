@@ -15,4 +15,4 @@ bazel build //... ${BAZEL_FLAGS}
 # make artifacts available to volume mounted to docker container
 cp -f -r bazel-bin/apps/submission_moderator_app/lambda_pkg.zip ${SUBMISSION_MODERATOR_APP_DIR}/lambda_pkg.zip
 cp -f -r bazel-bin/apps/entering_and_transitioning_app/lambda_pkg.zip ${ENTERING_AND_TRANSITIONING_APP_DIR}/lambda_pkg.zip
-cp -f -r bazel-bin/apps/wiki_moderator_app/bin.zip ${WIKI_MODERATOR_APP_DIR}/bin
+cp -f -r bazel-bin/apps/wiki_moderator_app/bin ${WIKI_MODERATOR_APP_DIR}/bin
