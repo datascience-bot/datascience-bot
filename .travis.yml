@@ -12,8 +12,9 @@
 #     --detach --interactive --tty
 #   Keep memory usage in check
 #     --memory=1g --memory-swap=10g --oom-kill-disable
-services:
-  - docker
+language: python  # required to run binaries outside container in deploy phase
+python: "3.7"
+services: docker
 env:
   global:
     - ENV_FILE=.env
