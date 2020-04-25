@@ -43,10 +43,9 @@ before_script:
 script:
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bazel build //..."
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bazel test //... --jobs=1"
+  - docker exec ${CONTAINER_NAME} /bin/bash -c "bash get-build-artifacts.sh"
 after_script:
   - ls -a
-before_deploy:
-  - docker exec ${CONTAINER_NAME} /bin/bash -c "bash get-build-artifacts.sh"
   - ls _output -a
 deploy:
   - provider: script
