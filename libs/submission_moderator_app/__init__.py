@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 """Submission Moderator
 """
+import logging
+
 import praw
+
+from libs.shared.monitor import SubmissionMonitor
+
+
+logger = logging.getLogger(__name__)
 
 
 class SubmissionClassifier:
@@ -188,3 +195,18 @@ class SubmissionModerator:
             self.submission.mod.remove()
         else:
             self.submission.mod.approve()
+
+
+def main(reddit: praw.Reddit):
+    monitor = SubmissionMonitor(reddit)
+    mod = SubmissionModerator(reddit)
+
+    for submission in monitor.new(limit=5):
+        msg = (
+            f"Moderate '{submission.title}' "
+            f"by u/{submission.author.name} "
+            f"in r/{submission.subreddit.display_name} "
+            f"({submission.url})"
+        )
+        logger.info(msg)
+        mod.moderate(submission)

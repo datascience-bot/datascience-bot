@@ -5,11 +5,7 @@ load("//tools/lambda_python_pkg:defs.bzl", "lambda_python_pkg")
 py_library(
     name = "lib",
     srcs = ["__init__.py"],
-    deps = [
-        "//libs/shared/authpraw:lib",
-        "//libs/shared/monitor:lib",
-        "//libs/submission_moderator_app:lib",
-    ],
+    deps = ["//libs/submission_moderator_app:lib"],
 )
 
 py_test(
@@ -29,7 +25,10 @@ py_binary(
     name = "bin",
     srcs = ["__main__.py"],
     main = "__main__.py",
-    deps = [":lib"],
+    deps = [
+        ":lib",
+        "//libs/shared/authpraw:lib",
+    ],
 )
 
 py_binary(

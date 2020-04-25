@@ -11,6 +11,7 @@ from libs.shared.authpraw import (
     get_b3405920,
 )
 
+# tests should only run on r/datascience_bot_dev
 SUBREDDIT_NAME = "datascience_bot_dev"
 
 
@@ -58,7 +59,7 @@ class TestLiveScenario(unittest.TestCase):
                     comment.delete()
 
     def execute_bin(self):
-        main()
+        main(reddit=self.bobby)
 
     def setup_blog_submission(self):
         return self.charlie.subreddit(SUBREDDIT_NAME).submit(

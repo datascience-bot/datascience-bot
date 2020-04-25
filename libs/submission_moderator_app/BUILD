@@ -5,7 +5,10 @@ py_library(
     name = "lib",
     srcs = ["__init__.py"],
     visibility = ["//:submission_moderator_app"],
-    deps = [requirement("praw")],
+    deps = [
+        "//libs/shared/monitor:lib",
+        requirement("praw"),
+    ],
 )
 
 py_test(

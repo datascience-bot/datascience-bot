@@ -3,25 +3,11 @@
 """
 import logging
 
-from libs.shared.authpraw import get_datascience_bot
-from libs.shared.monitor import SubmissionMonitor
-from libs.submission_moderator_app import SubmissionModerator
+from libs.submission_moderator_app import main
 
 
-logger = logging.getLogger(__name__)
-
-
-def main():
-    reddit = get_datascience_bot()
-    monitor = SubmissionMonitor(reddit)
-    mod = SubmissionModerator(reddit)
-
-    for submission in monitor.new(limit=5):
-        msg = (
-            f"Moderate '{submission.title}' "
-            f"by u/{submission.author.name} "
-            f"in r/{submission.subreddit.display_name} "
-            f"({submission.url})"
-        )
-        logger.info(msg)
-        mod.moderate(submission)
+logging.basicConfig(
+    format=("%(asctime)s.%(msecs)03d UTC | %(levelname)-8s | %(message)s"),
+    level=logging.INFO,
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
