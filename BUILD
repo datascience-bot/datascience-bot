@@ -13,3 +13,11 @@ package_group(
         "//libs/entering_and_transitioning_app",
     ],
 )
+
+package_group(
+    name = "wiki_moderator_app",
+    packages = [
+        "//apps/wiki_moderator_app",
+        "//libs/wiki_moderator_app",
+    ],
+)
