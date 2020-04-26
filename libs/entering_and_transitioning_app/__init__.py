@@ -222,7 +222,12 @@ class CommentRemediator:
         reply.mod.distinguish(how="yes")
 
 
-def main(subreddit: praw.models.Subreddit, time: datetime = datetime.utcnow(), validate: bool = True):
+def main(
+    subreddit: praw.models.Subreddit,
+    time: datetime = datetime.utcnow(),
+    validate: bool = True,
+):
+    logger.info("Enter entering_and_transitioning_app")
     last_thread = SubmissionAuthor.get_last_thread(subreddit)
 
     if validate:
