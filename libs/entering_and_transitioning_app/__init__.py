@@ -116,7 +116,7 @@ class SubmissionAuthor:
             ):
                 return submission
         else:
-            raise Exception("Could not find the last stickied thread")
+            raise InvalidConditionError("Could not find the last stickied thread")
 
     def get_selftext(self) -> str:
         """Get the selftext for the Entering & Transitioning thread
@@ -230,16 +230,28 @@ def main(
     logger.info("Enter entering_and_transitioning_app")
     logger.info(f"Act on {subreddit_name} with u/{reddit.user.me()}")
     subreddit = reddit.subreddit(subreddit_name)
-    last_thread = SubmissionAuthor.get_last_thread(subreddit)
 
     if validate:
-        validate_conditions(last_thread, time)
+        validate_time(time)
 
+    try:
+        last_thread = SubmissionAuthor.get_last_thread(subreddit)
+    except InvalidConditionError:
+        last_thread_exists = False
+        logger.warning(
+            "Detected no previous weekly thread detected; skipping comment remediation"
+        )
+    else:
+        last_thread_exists = True
+        if validate:
+            validate_unique_thread(last_thread)
+
+    logger.info("Create new Entering & Transitioning thread")
     author = SubmissionAuthor(subreddit)
     new_thread = author.submit_thread(time)
 
-    remediator = CommentRemediator()
-    remediator.remediate_comments(on_thread=last_thread, to_thread=new_thread)
-
-    # TODO move this logic to libs
-    last_thread.mod.sticky(state=False)
+    if last_thread_exists:
+        logger.info("Remediate comments on last Entering & Transitioning thread")
+        remediator = CommentRemediator()
+        remediator.remediate_comments(on_thread=last_thread, to_thread=new_thread)
+        last_thread.mod.sticky(state=False)

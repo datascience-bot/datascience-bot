@@ -91,6 +91,11 @@ class TestAuthor(BaseTestCase):
         submission = self.author.get_last_thread(subreddit=subreddit)
 
         self.assertIsInstance(submission, praw.models.Submission)
+    
+    def test_get_last_thread_raises_exception(self):
+        with self.assertRaises(InvalidConditionError):
+            self.author.get_last_thread(subreddit=self.subreddit)
+
 
 
 if __name__ == "__main__":
