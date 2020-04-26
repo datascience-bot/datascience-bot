@@ -19,15 +19,3 @@ py_test(
     local = True,
     deps = [":lib"],
 )
-
-py_test(
-    name = "test_praw_integration",
-    timeout = "short",
-    srcs = ["tests/test_praw_integration.py"],
-    flaky = True,
-    local = False,
-    deps = [
-        ":lib",
-        "//libs/shared/authpraw:lib",
-    ],
-)
