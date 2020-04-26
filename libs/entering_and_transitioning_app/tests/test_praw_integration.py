@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime, timedelta
 import os
 import subprocess
 from time import sleep
 import unittest
 
-from apps.submission_moderator_app import main
+from libs.entering_and_transitioning_app import (
+    CommentRemediator,
+    SubmissionAuthor,
+    main,
+)
 from libs.shared.authpraw import (
     get_datascience_bot,
     get_SubstantialStrain6,
     get_b3405920,
 )
+
 
 SUBREDDIT_NAME = "datascience_bot_dev"
 
@@ -31,6 +37,7 @@ class TestLiveScenario(unittest.TestCase):
 
     def tearDown(self):
         del self.alex
+        del self.bobby
         del self.charlie
 
     def delete_existing_submissions(self):
@@ -57,55 +64,33 @@ class TestLiveScenario(unittest.TestCase):
                     )
                     comment.delete()
 
-    def execute_bin(self):
-        main()
+    def setup_last_thread(self, time: datetime):
+        subreddit = self.bobby.subreddit(SUBREDDIT_NAME)
+        author = SubmissionAuthor(subreddit)
 
-    def setup_blog_submission(self):
-        return self.charlie.subreddit(SUBREDDIT_NAME).submit(
-            title="No thank you, Mr. Pecker",
-            url="https://medium.com/@jeffreypbezos/no-thank-you-mr-pecker-146e3922310f",
-        )
+        submission = author.submit_thread(time)
 
-    def setup_porn_submission(self):
-        return self.charlie.subreddit(SUBREDDIT_NAME).submit(
-            title="Porn porn porn", url="https://pornhub.com/",
+        # setup comment with replies
+        comment = self.charlie.submission(submission.id).reply(
+            "What should I major in?"
         )
+        self.alex.comment(comment.id).reply("CS or something")
 
-    def setup_troll_submission(self):
-        return self.alex.subreddit(SUBREDDIT_NAME).submit(
-            title="What should I major in?",
-            selftext="This is just a dummy post. I have nothing more to say.",
-        )
-
-    def setup_valid_submission(self):
-        return self.charlie.subreddit(SUBREDDIT_NAME).submit(
-            title="What's the deal with ML engineering?",
-            selftext="This is just a dummy post. I have nothing more to say.",
-        )
-
-    def setup_video_submission(self):
-        return self.charlie.subreddit(SUBREDDIT_NAME).submit(
-            title="80s Remix: Tronicbox 'Somebody That I Used To Know' Gotye",
-            url="https://www.youtube.com/watch?v=-qstIEHDVRg",
-        )
+        # setup comment with no replies
+        self.alex.submission(submission.id).reply("How do I become a data scientist?")
 
     def test_scenario(self):
-        blog = self.setup_blog_submission()
-        porn = self.setup_porn_submission()
-        troll = self.setup_troll_submission()
-        video = self.setup_video_submission()
-        valid = self.setup_valid_submission()
+        time = datetime.strptime("2019-07-07", "%Y-%m-%d")
+        self.setup_last_thread(time)
 
-        self.execute_bin()
+        sleep(3)  # give a fews secs for Reddit's servers to update
 
-        for banned_submission in (blog, porn, troll, video):
-            mod_view = self.bobby.submission(banned_submission.id)
-            self.assertTrue(mod_view.approved is False)
-            self.assertTrue(mod_view.spam is True or mod_view.removed is True)
-
-        valid_mod_view = self.bobby.submission(valid.id)
-        self.assertTrue(valid_mod_view.approved is True)
-        self.assertTrue(valid_mod_view.banned_by is None)
+        main(
+            reddit=self.bobby,
+            subreddit_name=SUBREDDIT_NAME,
+            time=(time + timedelta(days=7)),
+            validate=False,
+        )
 
 
 if __name__ == "__main__":

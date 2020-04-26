@@ -5,7 +5,10 @@ py_library(
     name = "lib",
     srcs = ["__init__.py"],
     visibility = ["//:submission_moderator_app"],
-    deps = [requirement("praw")],
+    deps = [
+        "//libs/shared/monitor:lib",
+        requirement("praw"),
+    ],
 )
 
 py_test(
@@ -38,5 +41,17 @@ py_test(
     deps = [
         ":lib",
         "//libs/shared/pram:lib",
+    ],
+)
+
+py_test(
+    name = "test_praw_integration",
+    timeout = "short",
+    srcs = ["tests/test_praw_integration.py"],
+    flaky = True,  # praw integration can fail
+    local = False,
+    deps = [
+        ":lib",
+        "//libs/shared/authpraw:lib",
     ],
 )

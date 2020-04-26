@@ -1,34 +1,14 @@
-load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
-load("@py_deps//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary")
 load("//tools/lambda_python_pkg:defs.bzl", "lambda_python_pkg")
-
-py_library(
-    name = "lib",
-    srcs = ["__init__.py"],
-    deps = [
-        "//libs/entering_and_transitioning_app:lib",
-        "//libs/shared/authpraw:lib",
-    ],
-)
-
-py_test(
-    name = "test",
-    timeout = "short",
-    srcs = ["tests/test_entering_and_transitioning_app.py"],
-    flaky = True,  # praw integration can fail
-    local = False,
-    main = "tests/test_entering_and_transitioning_app.py",
-    deps = [
-        ":lib",
-        "//libs/shared/authpraw:lib",
-    ],
-)
 
 py_binary(
     name = "bin",
     srcs = ["__main__.py"],
     main = "__main__.py",
-    deps = [":lib"],
+    deps = [
+        "//libs/entering_and_transitioning_app:lib",
+        "//libs/shared/authpraw:lib",
+    ],
 )
 
 py_binary(
@@ -36,8 +16,8 @@ py_binary(
     srcs = ["lambda_function.py"],
     main = "lambda_function.py",
     deps = [
-        ":lib",
-        requirement("praw"),
+        "//libs/entering_and_transitioning_app:lib",
+        "//libs/shared/authpraw:lib",
     ],
 )
 
