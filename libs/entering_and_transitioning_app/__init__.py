@@ -110,7 +110,7 @@ class SubmissionAuthor:
         for submission in subreddit.hot(limit=2):  # max 2 possible stickies
             if (
                 submission.title.startswith(cls.title_prefix)
-                and submission.stickied == True
+                and submission.stickied is True
                 and submission.author == "datascience-bot"
             ):
                 return submission

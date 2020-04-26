@@ -20,7 +20,7 @@ class SubmissionClassifier:
 
     Usage:
         >>> import libs.shared.authpraw
-        >>> from libs.submission_moderator_app.submission_classifier import SubmissionClassifier
+        >>> from libs.submission_moderator_app import SubmissionClassifier
         >>> reddit = authpraw.get_datascience_bot()
         >>> classifier = SubmissionClassifier(reddit)
         >>> submission = reddit.submission("euot0h")
@@ -78,8 +78,8 @@ class SubmissionArbiter:
 
     Usage:
         >>> import libs.shared.authpraw
-        >>> from libs.submission_moderator_app.submission_arbiter import SubmissionArbiter
-        >>> from libs.submission_moderator_app.submission_classifier import SubmissionClassifier
+        >>> from libs.submission_moderator_app import SubmissionArbiter
+        >>> from libs.submission_moderator_app import SubmissionClassifier
         >>>
         >>> reddit = authpraw.get_datascience_bot()
         >>> classifier = SubmissionClassifier()
@@ -115,7 +115,7 @@ class SubmissionArbiter:
             min_k = self.classifier.min_karma
             submission = self.classifier.submission
             user_k = submission.author.comment_karma + submission.author.link_karma
-            entering_and_transitioning_thread = "[Entering and Transitioning thread](https://www.reddit.com/r/datascience/search/?q=Weekly%20Entering%20%26%20Transitioning%20Thread&restrict_sr=1&sort=new&t=week)"
+            entering_and_transitioning_thread = "[Entering and Transitioning thread](https://www.reddit.com/r/datascience/search/?q=Weekly%20Entering%20%26%20Transitioning%20Thread&restrict_sr=1&sort=new&t=week)"  # noqa: E501
 
             self.removal_reasons.append(
                 "**Not enough karma.** "
@@ -165,7 +165,7 @@ class SubmissionModerator:
 
     Usage:
         >>> import libs.shared.authpraw
-        >>> from libs.submission_moderator_app.submission_moderator import SubmissionModerator
+        >>> from libs.submission_moderator_app import SubmissionModerator
         >>> reddit = authpraw.get_datascience_bot()
         >>> moderator = SubmissionModerator(reddit)
         >>> submission = reddit.submission("euot0h")
