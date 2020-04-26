@@ -85,8 +85,12 @@ class TestLiveScenario(unittest.TestCase):
 
         sleep(3)  # give a fews secs for Reddit's servers to update
 
-        subreddit = self.bobby.subreddit(SUBREDDIT_NAME)
-        main(subreddit, time=(time + timedelta(days=7)), validate=False)
+        main(
+            reddit=self.bobby,
+            subreddit_name=SUBREDDIT_NAME,
+            time=(time + timedelta(days=7)),
+            validate=False,
+        )
 
 
 if __name__ == "__main__":

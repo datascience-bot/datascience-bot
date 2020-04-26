@@ -44,10 +44,14 @@ if __name__ == "__main__":
 
     args = ARGS.parse_args()
 
-    subreddit = get_datascience_bot().subreddit(args.subreddit_name)
     if args.fake_sunday is True:
         time = datetime.strptime("2019-07-07", "%Y-%m-%d")
     else:
         time = datetime.utcnow()
 
-    main(subreddit=subreddit, time=time, validate=not args.no_validate)
+    main(
+        reddit=get_datascience_bot(),
+        subreddit_name=args.subreddit_name,
+        time=time,
+        validate=not args.no_validate,
+    )

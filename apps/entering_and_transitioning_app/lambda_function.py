@@ -11,5 +11,4 @@ SUBREDDIT_NAME: str = os.getenv("SUBREDDIT_NAME")
 
 
 def lambda_handler(event, context):
-    subreddit = get_datascience_bot().subreddit(SUBREDDIT_NAME)
-    main(subreddit)
+    main(reddit=get_datascience_bot(), subreddit_name=SUBREDDIT_NAME)

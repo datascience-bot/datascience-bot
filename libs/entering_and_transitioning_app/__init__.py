@@ -12,7 +12,6 @@ import os
 import praw
 
 
-SUBREDDIT_NAME = os.getenv("SUBREDDIT_NAME")
 logger = logging.getLogger(__name__)
 
 
@@ -223,11 +222,14 @@ class CommentRemediator:
 
 
 def main(
-    subreddit: praw.models.Subreddit,
+    reddit: praw.Reddit,
+    subreddit_name: str,
     time: datetime = datetime.utcnow(),
     validate: bool = True,
 ):
     logger.info("Enter entering_and_transitioning_app")
+    logger.info(f"Act on {subreddit_name} with u/{reddit.user.me()}")
+    subreddit = reddit.subreddit(subreddit_name)
     last_thread = SubmissionAuthor.get_last_thread(subreddit)
 
     if validate:
