@@ -29,4 +29,5 @@ if __name__ == "__main__":
     args = ARGS.parse_args()
 
     bobby = get_datascience_bot()
-    main(reddit=bobby, subreddit_name=args.subreddit_name)
+    subreddit = bobby.subreddit(args.subreddit_name)
+    main(subreddit=subreddit)

@@ -12,9 +12,9 @@ WIKI_DIR = pathlib.Path("libs/wiki/data")
 logger = logging.getLogger(__name__)
 
 
-def main(reddit: praw.Reddit, subreddit_name: str):
+def main(subreddit: praw.models.Subreddit):
     logger.info("Enter wiki deployment")
-    remote_wiki = reddit.subreddit(subreddit_name).wiki
+    remote_wiki = subreddit.wiki
     local_wiki = get_local_wiki(WIKI_DIR)
 
     update_wiki(remote_wiki, local_wiki)
