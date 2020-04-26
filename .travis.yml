@@ -47,8 +47,7 @@ deploy:
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/modtools/removal_reasons:bin datascience_bot_dev"
     on:
-      all_branches: true
-      # branch: master
+      branch: master
   # deploy removal reasons to r/datascience
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/modtools/removal_reasons:bin datascience"
