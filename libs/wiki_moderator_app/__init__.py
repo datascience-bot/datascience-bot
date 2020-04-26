@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 def main(subreddit_name: str):
+    logger.info("Enter wiki_moderator_app")
     bobby = get_datascience_bot()
     remote_wiki = bobby.subreddit(subreddit_name).wiki
     local_wiki = get_local_wiki(WIKI_DIR)
