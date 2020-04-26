@@ -5,6 +5,7 @@ py_library(
     name = "lib",
     srcs = ["__init__.py"],
     data = ["data/removal-reasons.yaml"],
+    visibility = ["//:modtools"],
     deps = [
         requirement("praw"),
         requirement("pyyaml"),

@@ -7,6 +7,13 @@ package_group(
 )
 
 package_group(
+    name = "modtools",
+    packages = [
+        "//apps/modtools/...",
+        "//libs/modtools/...",
+    ],
+)
+package_group(
     name = "submission_moderator_app",
     packages = [
         "//apps/submission_moderator_app",
