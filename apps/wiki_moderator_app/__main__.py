@@ -4,6 +4,7 @@
 import argparse
 import logging
 
+from libs.shared.authpraw import get_datascience_bot
 from libs.wiki_moderator_app import main
 
 
@@ -27,4 +28,5 @@ args = parser.parse_args()
 
 
 if __name__ == "__main__":
-    main(subreddit_name=args.subreddit_name)
+    bobby = get_datascience_bot()
+    main(reddit=bobby, subreddit_name=args.subreddit_name)
