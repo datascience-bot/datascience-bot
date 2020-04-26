@@ -2,7 +2,7 @@
 """Fetch new submissions and moderate accordingly
 
 Usage:
-    $ python __main__.py datascience_bot_dev
+    $ python apps/entering_and_transitioning_app datascience_bot_dev
 """
 import argparse
 from datetime import datetime
