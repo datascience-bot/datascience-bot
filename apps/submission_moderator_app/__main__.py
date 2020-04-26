@@ -14,6 +14,5 @@ logger = logging.getLogger(__name__)
 
 
 if __name__ == "__main__":
-    logger.info("Enter submission_moderator_app")
     reddit = get_datascience_bot()
     main(reddit=reddit)

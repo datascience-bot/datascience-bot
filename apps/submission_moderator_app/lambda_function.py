@@ -16,6 +16,5 @@ logger = logging.getLogger(__name__)
 
 
 def lambda_handler(event, context):
-    logger.info("Enter submission_moderator_app")
     reddit = get_datascience_bot()
     main(reddit=reddit)

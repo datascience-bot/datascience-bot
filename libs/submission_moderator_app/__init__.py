@@ -198,6 +198,8 @@ class SubmissionModerator:
 
 
 def main(reddit: praw.Reddit):
+    logger.info("Enter submission_moderator_app")
+
     monitor = SubmissionMonitor(reddit)
     mod = SubmissionModerator(reddit)
 
