@@ -5,7 +5,10 @@ py_binary(
     name = "bin",
     srcs = ["__main__.py"],
     main = "__main__.py",
-    deps = ["//libs/entering_and_transitioning_app:lib"],
+    deps = [
+        "//libs/entering_and_transitioning_app:lib",
+        "//libs/shared/authpraw:lib",
+    ],
 )
 
 py_binary(
