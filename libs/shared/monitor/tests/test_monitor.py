@@ -16,7 +16,9 @@ class BaseTestCase(abc.ABC):
     # This isn't quite right: Union[Type[CommentMonitor], Type[SubmissionMonitor]]
     @abc.abstractmethod
     def setUp(self, monitor_constructor):
-        self.monitor = monitor_constructor(get_datascience_bot())
+        bobby = get_datascience_bot()
+        subreddit = bobby.subreddit("datascience_bot_dev")
+        self.monitor = monitor_constructor(subreddit)
 
     def tearDown(self):
         del self.monitor

@@ -197,11 +197,11 @@ class SubmissionModerator:
             self.submission.mod.approve()
 
 
-def main(reddit: praw.Reddit):
+def main(subreddit: praw.models.Subreddit):
     logger.info("Enter submission_moderator_app")
 
-    monitor = SubmissionMonitor(reddit)
-    mod = SubmissionModerator(reddit)
+    monitor = SubmissionMonitor(subreddit)
+    mod = SubmissionModerator(subreddit._reddit)
 
     for submission in monitor.new(limit=5):
         msg = (

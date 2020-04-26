@@ -18,6 +18,7 @@ py_binary(
     main = "lambda_function.py",
     deps = [
         "//libs/shared/authpraw:lib",
+        "//libs/shared/logging:lib",
         "//libs/submission_moderator_app:lib",
     ],
 )
