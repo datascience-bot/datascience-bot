@@ -8,6 +8,9 @@ import argparse
 from datetime import datetime
 import logging
 
+from libs.entering_and_transitioning_app import main
+from libs.shared.authpraw import get_datascience_bot
+
 
 logging.basicConfig(
     format=("%(asctime)s.%(msecs)03d UTC | %(levelname)-8s | %(message)s"),
@@ -39,9 +42,6 @@ ARGS.add_argument(
 
 
 if __name__ == "__main__":
-    from libs.entering_and_transitioning_app import main
-    from libs.shared.authpraw import get_datascience_bot
-
     args = ARGS.parse_args()
 
     if args.fake_sunday is True:
