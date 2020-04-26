@@ -3,7 +3,10 @@ load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 py_library(
     name = "lib",
     srcs = ["__init__.py"],
-    deps = ["//libs/wiki:lib"],
+    deps = [
+        "//libs/shared/logging:lib",
+        "//libs/wiki:lib",
+    ],
 )
 
 py_binary(

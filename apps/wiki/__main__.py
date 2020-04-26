@@ -5,14 +5,11 @@ import argparse
 import logging
 
 from libs.shared.authpraw import get_datascience_bot
+import libs.shared.logging
 from libs.wiki import main
 
 
-logging.basicConfig(
-    format=("%(asctime)s.%(msecs)03d UTC | %(levelname)-8s | %(message)s"),
-    level=logging.INFO,
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
+libs.shared.logging.basicConfig()
 logger = logging.getLogger(__name__)
 
 

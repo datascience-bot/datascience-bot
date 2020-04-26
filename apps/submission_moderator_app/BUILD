@@ -7,6 +7,7 @@ py_binary(
     main = "__main__.py",
     deps = [
         "//libs/shared/authpraw:lib",
+        "//libs/shared/logging:lib",
         "//libs/submission_moderator_app:lib",
     ],
 )

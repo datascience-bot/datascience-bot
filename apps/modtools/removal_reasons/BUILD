@@ -7,5 +7,6 @@ py_binary(
     deps = [
         "//libs/modtools/removal_reasons:lib",
         "//libs/shared/authpraw:lib",
+        "//libs/shared/logging:lib",
     ],
 )
