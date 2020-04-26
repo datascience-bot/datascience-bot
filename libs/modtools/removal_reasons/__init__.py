@@ -47,14 +47,16 @@ def delete_removal_reasons(remote: SubredditRemovalReasons) -> SubredditRemovalR
 
 
 def main(subreddit: praw.models.Subreddit):
-    logger.info("Fetch local removal reasons")
+    logger.info(
+        "Enter modtools.removal_reasons; "
+        f"update removal reasons on r/{subreddit.display_name}"
+    )
+
     local = get_local_removal_reasons(REMOVAL_REASONS_YAML)
-    
-    logger.info("Fetch remote removal reasons")
     remote = subreddit.mod.removal_reasons
 
     logger.info("Delete existing removal reasons")
     delete_removal_reasons(remote)
 
-    logger.info("Add local removal reasons")
+    logger.info("Upload local removal reasons")
     add_removal_reasons(remote, reasons=local)
