@@ -5,7 +5,7 @@ import argparse
 import logging
 
 from libs.shared.authpraw import get_datascience_bot
-from libs.wiki_moderator_app import main
+from libs.wiki import main
 
 
 logging.basicConfig(

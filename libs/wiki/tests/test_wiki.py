@@ -1,6 +1,6 @@
 import unittest
 
-from libs.wiki_moderator_app import WIKI_DIR
+from libs.wiki import WIKI_DIR
 
 
 class TestWikiContent(unittest.TestCase):
