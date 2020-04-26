@@ -7,7 +7,7 @@ import pathlib
 import praw
 
 from libs.shared.authpraw import get_datascience_bot
-from libs.shared.modwiki import get_local_wiki, update_wiki
+from libs.wiki.modwiki import get_local_wiki, update_wiki
 
 
 WIKI_DIR = pathlib.Path("libs/wiki/data")
