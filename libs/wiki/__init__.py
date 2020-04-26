@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Deploy wiki to a subreddit
 """
 import logging

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Moderate (or modify) a subreddit wiki
 
 Usage:
@@ -73,7 +74,7 @@ def update_wikipage(remote_wikipage: praw.models.WikiPage, local_md: str) -> Non
 
     Args:
         remote_wikipage (praw.models.WikiPage): Wiki page to update
-        local_md (str): Local wiki page content as markdown use to update 
+        local_md (str): Local wiki page content as markdown use to update
             wiki page content.
     """
     if content_is_changed(remote_wikipage.content_md, local_md):

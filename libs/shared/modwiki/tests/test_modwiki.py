@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Unit test modwiki module
 """
 from collections import defaultdict
