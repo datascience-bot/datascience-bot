@@ -1,3 +1,4 @@
 .cache
 .git
 _output
+.venv
