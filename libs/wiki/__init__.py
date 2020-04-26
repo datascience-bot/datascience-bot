@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def main(subreddit: praw.models.Subreddit):
-    logger.info("Enter wiki deployment")
+    logger.info(f"Enter wiki deployment for r/{subreddit.display_name}")
     remote_wiki = subreddit.wiki
     local_wiki = get_local_wiki(WIKI_DIR)
 
