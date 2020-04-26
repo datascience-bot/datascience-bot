@@ -1,3 +1,5 @@
+"""Deploy wiki to a subreddit
+"""
 import logging
 import pathlib
 
