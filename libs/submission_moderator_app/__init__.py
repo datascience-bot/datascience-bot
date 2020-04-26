@@ -27,10 +27,10 @@ class SubmissionClassifier:
         >>> classifier.classify(submission)
     """
 
-    VIDEO_DOMAINS = ("youtube.com", "youtu.be", "vid.me")
-    BLOG_DOMAINS = ("towardsdatascience.com", "medium.com")
+    VIDEO_DOMAINS = {"youtube.com", "youtu.be", "vid.me"}
+    BLOG_DOMAINS = {"towardsdatascience.com", "medium.com"}
     # TODO: What about valid blogs hosted on medium? e.g. medium.com/netflix-techblog
-    PORN_DOMAINS = (
+    PORN_DOMAINS = {
         "porn.com",
         "pornhub.com",
         "porntube.com",
@@ -43,7 +43,7 @@ class SubmissionClassifier:
         "youporn.com",
         "extremetube.com",
         "hardsextube.com",
-    )
+    }
     min_karma = 50
 
     def __init__(self):
