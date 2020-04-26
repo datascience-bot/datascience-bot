@@ -4,8 +4,8 @@ load("@py_deps//:requirements.bzl", "requirement")
 py_library(
     name = "lib",
     srcs = ["__init__.py"],
-    data = glob(["wiki/*.md"]),
-    visibility = ["//:wiki_moderator_app"],
+    data = glob(["data/*.md"]),
+    visibility = ["//:wiki"],
     deps = [
         "//libs/shared/authpraw:lib",
         "//libs/shared/modwiki:lib",
@@ -14,9 +14,9 @@ py_library(
 )
 
 py_test(
-    name = "test_wiki_moderator_app",
+    name = "test_wiki",
     timeout = "short",
-    srcs = ["tests/test_wiki_moderator_app.py"],
+    srcs = ["tests/test_wiki.py"],
     local = True,
     deps = [":lib"],
 )

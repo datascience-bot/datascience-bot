@@ -22,9 +22,9 @@ package_group(
 )
 
 package_group(
-    name = "wiki_moderator_app",
+    name = "wiki",
     packages = [
-        "//apps/wiki_moderator_app",
-        "//libs/wiki_moderator_app",
+        "//apps/wiki",
+        "//libs/wiki",
     ],
 )
