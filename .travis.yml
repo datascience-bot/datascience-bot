@@ -43,6 +43,16 @@ script:
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bazel test //... --jobs=1"
   - docker exec ${CONTAINER_NAME} /bin/bash -c "bash get-build-artifacts.sh"
 deploy:
+  # deploy removal reasons to r/datascience_bot_dev
+  - provider: script
+    script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/modtools/removal_reasons:bin datascience_bot_dev"
+    on:
+      branch: master
+  # deploy removal reasons to r/datascience
+  - provider: script
+    script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/modtools/removal_reasons:bin datascience"
+    on:
+      tags: true
   # deploy wiki to r/datascience_bot_dev
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/wiki_moderator_app:bin datascience_bot_dev"

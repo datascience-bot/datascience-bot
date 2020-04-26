@@ -1,0 +1,68 @@
+- title: Link to personal blog
+  message: >
+    I removed your submission. We prefer the forum not be overrun with 
+    links to personal blog posts.  We occasionally make exceptions for 
+    regular contributors.
+
+    Thanks.
+- title: This post belongs in the sticky.
+  message: >
+    I removed your submission. Please post your question in the weekly
+    entering & transitioning thread.
+
+    Thanks.
+- title: Niche technical question
+  message: >
+    I removed your submission. Looks like you're asking a niche technical 
+    question. You may find more targeted help from one of these subs:
+
+    - /r/AskStatistics
+
+    - /r/LearnMachineLearning
+
+    - /r/LearnPython
+
+    Thanks.
+- title: Off-Topic
+  message: >
+    This post if off topic. /r/datascience is a place for data science 
+    practitioners and professionals to discuss and debate data science 
+    career questions.
+
+    Thanks.
+- title: /r/datascience is not stack overflow
+  message: >
+    I removed your submission. Looks like you're asking a technical 
+    question better suited to stackoverflow.com. Try posting there instead.
+
+    Thanks.
+- title: /r/datascience is not a homework helper
+  message: >
+    I removed your submission. Looks like you're asking for help with 
+    your homework. Try posting to /r/learnmachinelearning or a related 
+    subreddit instead.
+
+    Thanks.
+- title: /r/datascience is not a crowd-sourced Google
+  message: >
+    I removed your submission. Looks like you're asking a basic question 
+    with a widely agreed upon answer. Try using a search engine instead.
+
+    "Search engine questions" hurt the subreddit because they don't generate 
+    enough discussion and lower the overall quality of the forum.
+
+    Thanks.
+- title: Self-promotion/Commercial material
+  message: >
+    I removed your submission. We prefer to minimize the amount of 
+    promotional material in the subreddit, whether it is a company 
+    selling a product/services or a user trying to sell themselves.
+
+    Thanks.
+- title: Belongs in r/datasets
+  message: >
+    I removed your submission.  This subreddit is not for finding or 
+    sharing datasets. Please post in r/datasets or a subreddit specific 
+    to your area of interest.
+
+    Thanks.
