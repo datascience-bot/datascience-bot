@@ -1,8 +1,10 @@
 # Resources
 
+
 ## Books
 
 The following sections are ideal first texts for those interested in a career in data science.
+
 
 ### Statistics & Machine Learning
 
@@ -11,6 +13,7 @@ The following sections are ideal first texts for those interested in a career in
 * [Free ebook](https://web.stanford.edu/~hastie/ElemStatLearn/)
 
 * Requirements: Combinatorics, Probability, Linear Algebra
+
 
 ### Deep Learning & Neural Networks
 
@@ -36,11 +39,17 @@ The following sections are ideal first texts for those interested in a career in
 
 * This triad of books are the definitive texts for readers interested in R programming.
 
+
 ### Python Programming
 
 [Python Machine Learning by Sebastian Raschka](https://www.amazon.com/dp/B00YSILNL0)
 
 * [Author's Code](https://github.com/rasbt/python-machine-learning-book)
+
+
+### Business
+
+* [Field Guide to Data Science](https://www.boozallen.com/s/insight/publication/field-guide-to-data-science.html) by Booz Allen Hamilton
 
 
 ### Texts from the Megathread
@@ -103,6 +112,7 @@ The following sections are ideal first texts for those interested in a career in
 * [Data Visualization For Dummies](https://www.amazon.com/Data-Visualization-Dummies-Mico-Yuk/dp/1118502892)
 * [Statistics in a Nutshell](https://www.amazon.com/Statistics-Nutshell-Desktop-Quick-Reference/dp/1449316824)
 
+
 ## Podcasts
 
 * [Adversarial Learning](http://adversariallearning.com/)
@@ -120,6 +130,7 @@ The following sections are ideal first texts for those interested in a career in
 * [Partially Derivative](http://www.partiallyderivative.com/)
 * [Talking Machines](http://www.thetalkingmachines.com/)
 * [What's the Point](https://fivethirtyeight.com/tag/whats-the-point/)
+
 
 ## MOOCs
 
