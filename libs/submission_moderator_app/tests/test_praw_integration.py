@@ -4,14 +4,14 @@ import subprocess
 from time import sleep
 import unittest
 
-from apps.submission_moderator_app import main
 from libs.shared.authpraw import (
     get_datascience_bot,
     get_SubstantialStrain6,
     get_b3405920,
 )
+from libs.submission_moderator_app import main
 
-# tests should only run on r/datascience_bot_dev
+
 SUBREDDIT_NAME = "datascience_bot_dev"
 
 

@@ -43,3 +43,15 @@ py_test(
         "//libs/shared/pram:lib",
     ],
 )
+
+py_test(
+    name = "test_praw_integration",
+    timeout = "short",
+    srcs = ["tests/test_praw_integration.py"],
+    flaky = True,  # praw integration can fail
+    local = False,
+    deps = [
+        ":lib",
+        "//libs/shared/authpraw:lib",
+    ],
+)

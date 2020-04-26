@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
-import argparse
 import logging
 
-from apps.submission_moderator_app import main
+from libs.submission_moderator_app import main
 from libs.shared.authpraw import get_datascience_bot
 
 
+logging.basicConfig(
+    format=("%(asctime)s.%(msecs)03d UTC | %(levelname)-8s | %(message)s"),
+    level=logging.INFO,
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 logger = logging.getLogger(__name__)
 
 
