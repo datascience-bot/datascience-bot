@@ -3,7 +3,6 @@
 """
 from collections import defaultdict
 import os
-import pathlib
 import unittest
 from unittest.mock import Mock, create_autospec
 

@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
-import os
-import subprocess
 from time import sleep
 import unittest
 
 from libs.entering_and_transitioning_app import (
-    CommentRemediator,
     SubmissionAuthor,
     main,
 )

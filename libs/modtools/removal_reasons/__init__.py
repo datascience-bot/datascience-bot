@@ -5,7 +5,7 @@ import pathlib
 from typing import Dict, List
 
 import praw
-from praw.models.reddit.removal_reasons import RemovalReason, SubredditRemovalReasons
+from praw.models.reddit.removal_reasons import SubredditRemovalReasons
 import yaml
 
 

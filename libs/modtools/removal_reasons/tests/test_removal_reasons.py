@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Unit test removal reasons configuration
 """
-from types import GeneratorType
 import unittest
 from unittest.mock import Mock, create_autospec
 

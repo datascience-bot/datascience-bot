@@ -13,7 +13,6 @@ Notes:
 """
 from datetime import datetime, timedelta
 import unittest
-from unittest.mock import Mock
 
 import praw
 
@@ -21,8 +20,6 @@ from libs.shared.pram import BaseTestCase, mock_submission, mock_subreddit
 from libs.entering_and_transitioning_app import (
     SubmissionAuthor,
     InvalidConditionError,
-    validate_time,
-    validate_unique_thread,
 )
 
 

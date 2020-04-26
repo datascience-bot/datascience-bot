@@ -7,7 +7,6 @@
 """
 from datetime import datetime, timedelta, timezone
 import logging
-import os
 
 import praw
 

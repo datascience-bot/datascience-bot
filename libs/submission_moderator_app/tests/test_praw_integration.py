@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
-import subprocess
-from time import sleep
 import unittest
 
 from libs.shared.authpraw import (
