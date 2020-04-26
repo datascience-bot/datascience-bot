@@ -5,7 +5,7 @@ import subprocess
 from time import sleep
 import unittest
 
-from apps.entering_and_transitioning_app import (
+from libs.entering_and_transitioning_app import (
     CommentRemediator,
     SubmissionAuthor,
     main,
@@ -64,9 +64,6 @@ class TestLiveScenario(unittest.TestCase):
                     )
                     comment.delete()
 
-    def execute_bin(self):
-        main()
-
     def setup_last_thread(self, time: datetime):
         subreddit = self.bobby.subreddit(SUBREDDIT_NAME)
         author = SubmissionAuthor(subreddit)
@@ -88,7 +85,8 @@ class TestLiveScenario(unittest.TestCase):
 
         sleep(3)  # give a fews secs for Reddit's servers to update
 
-        main(time=(time + timedelta(days=7)), validate=False)
+        subreddit = self.bobby.subreddit(SUBREDDIT_NAME)
+        main(subreddit, time=(time + timedelta(days=7)), validate=False)
 
 
 if __name__ == "__main__":

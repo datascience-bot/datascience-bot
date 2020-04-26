@@ -2,7 +2,8 @@
 """Entrypoint for AWS Lambda function
 """
 from datetime import datetime
-from apps.entering_and_transitioning_app import main
+
+from libs.entering_and_transitioning_app import main
 
 
 def lambda_handler(event, context):

@@ -15,7 +15,6 @@ py_test(
     srcs = ["tests/test_SubmissionAuthor.py"],
     data = ["data/selftext.md"],
     local = True,
-    main = "tests/test_SubmissionAuthor.py",
     deps = [
         ":lib",
         "//libs/shared/pram:lib",
@@ -28,7 +27,6 @@ py_test(
     timeout = "short",
     srcs = ["tests/test_CommentRemediator.py"],
     local = True,
-    main = "tests/test_CommentRemediator.py",
     deps = [
         ":lib",
         "//libs/shared/pram:lib",
@@ -41,9 +39,20 @@ py_test(
     timeout = "short",
     srcs = ["tests/test_validation.py"],
     local = True,
-    main = "tests/test_validation.py",
     deps = [
         ":lib",
         "//libs/shared/pram:lib",
+    ],
+)
+
+py_test(
+    name = "test_praw_integration",
+    timeout = "short",
+    srcs = ["tests/test_praw_integration.py"],
+    flaky = True,  # praw integration can fail
+    local = False,
+    deps = [
+        ":lib",
+        "//libs/shared/authpraw:lib",
     ],
 )
