@@ -8,6 +8,7 @@ py_binary(
     deps = [
         "//libs/entering_and_transitioning_app:lib",
         "//libs/shared/authpraw:lib",
+        "//libs/shared/logging:lib",
     ],
 )
 

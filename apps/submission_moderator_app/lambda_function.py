@@ -2,19 +2,19 @@
 """Entrypoint for AWS Lambda function
 """
 import logging
+import os
 
 from libs.submission_moderator_app import main
 from libs.shared.authpraw import get_datascience_bot
+import libs.shared.logging
 
 
-logging.basicConfig(
-    format=("%(asctime)s.%(msecs)03d UTC | %(levelname)-8s | %(message)s"),
-    level=logging.INFO,
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
+libs.shared.logging.basicConfig()
 logger = logging.getLogger(__name__)
 
 
 def lambda_handler(event, context):
-    reddit = get_datascience_bot()
-    main(reddit=reddit)
+    bobby = get_datascience_bot()
+    subreddit_name = os.getenv("SUBREDDIT_NAME")
+    subreddit = bobby.subreddit(subreddit_name)
+    main(subreddit=subreddit)

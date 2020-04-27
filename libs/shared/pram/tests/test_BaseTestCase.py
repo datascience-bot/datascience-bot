@@ -49,7 +49,7 @@ class TestBaseTestCase(BaseTestCase):
             test_case.redditor
             test_case.submission
             test_case.subreddit
-        except:
+        except Exception:
             self.fail("Failed to set up required attributes")
 
     def test_tear_down(self):

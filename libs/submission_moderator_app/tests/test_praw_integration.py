@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
-import subprocess
-from time import sleep
 import unittest
 
 from libs.shared.authpraw import (
@@ -59,7 +56,7 @@ class TestLiveScenario(unittest.TestCase):
                     comment.delete()
 
     def execute_bin(self):
-        main(reddit=self.bobby)
+        main(subreddit=self.bobby.subreddit(SUBREDDIT_NAME))
 
     def setup_blog_submission(self):
         return self.charlie.subreddit(SUBREDDIT_NAME).submit(

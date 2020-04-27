@@ -4,12 +4,12 @@
 import argparse
 import logging
 
+from libs.shared.authpraw import get_datascience_bot
+from libs.modtools.removal_reasons import main
+import libs.shared.logging
 
-logging.basicConfig(
-    format=("%(asctime)s.%(msecs)03d UTC | %(levelname)-8s | %(message)s"),
-    level=logging.INFO,
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
+
+libs.shared.logging.basicConfig()
 logger = logging.getLogger(__name__)
 
 
@@ -23,9 +23,6 @@ ARGS.add_argument(
 
 
 if __name__ == "__main__":
-    from libs.shared.authpraw import get_datascience_bot
-    from libs.modtools.removal_reasons import main
-
     args = ARGS.parse_args()
     bobby = get_datascience_bot()
     subreddit = bobby.subreddit(args.subreddit_name)

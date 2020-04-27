@@ -6,7 +6,7 @@ from unittest.mock import Mock
 
 import praw
 
-from libs.shared.pram import BaseTestCase, mock_comment, mock_submission
+from libs.shared.pram import BaseTestCase
 from libs.entering_and_transitioning_app import CommentRemediator
 
 

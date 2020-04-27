@@ -1,15 +1,15 @@
+# -*- coding: utf-8 -*-
 """Unit test modwiki module
 """
 from collections import defaultdict
 import os
-import pathlib
 import unittest
 from unittest.mock import Mock, create_autospec
 
 import praw
 
 from libs.shared.pram import BaseTestCase
-from libs.shared.modwiki import (
+from libs.wiki.modwiki import (
     get_local_wiki,
     create_missing_wikipages,
     content_is_changed,
@@ -25,7 +25,7 @@ class TestModWiki(BaseTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.local_wiki_dir = "libs/shared/modwiki/tests/testwiki"
+        cls.local_wiki_dir = "libs/wiki/modwiki/tests/testwiki"
 
     def setUp(self):
         super().setUp()

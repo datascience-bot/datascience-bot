@@ -8,7 +8,7 @@ py_library(
     visibility = ["//:wiki"],
     deps = [
         "//libs/shared/authpraw:lib",
-        "//libs/shared/modwiki:lib",
+        "//libs/wiki/modwiki:lib",
         requirement("praw"),
     ],
 )
