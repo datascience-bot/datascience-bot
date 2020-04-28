@@ -12,6 +12,11 @@
 #     --detach --interactive --tty
 #   Keep memory usage in check
 #     --memory=1g --memory-swap=10g --oom-kill-disable
+# Why skip_cleanup: true everywhere?
+#   Travis runs `git stash --all` when skip_cleanup: false.
+#   This action stashes everything in the _output dir and creates a ton of log messages.
+#   So many log messages, in fact, that travis build fail:
+#   e.g. The job exceeded the maximum log length, and has been terminated.
 services: docker
 env:
   global:
@@ -46,31 +51,37 @@ deploy:
   # deploy subreddit settings to r/datascience_bot_dev
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/modtools/site_admin:bin datascience_bot_dev"
+    skip_cleanup: true  # avoid super long logs
     on:
       branch: master
   # deploy subreddit settings to r/datascience
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/modtools/site_admin:bin datascience"
+    skip_cleanup: true  # avoid super long logs
     on:
       tags: true
   # deploy removal reasons to r/datascience_bot_dev
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/modtools/removal_reasons:bin datascience_bot_dev"
+    skip_cleanup: true  # avoid super long logs
     on:
       branch: master
   # deploy removal reasons to r/datascience
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/modtools/removal_reasons:bin datascience"
+    skip_cleanup: true  # avoid super long logs
     on:
       tags: true
   # deploy wiki to r/datascience_bot_dev
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/wiki:bin datascience_bot_dev"
+    skip_cleanup: true  # avoid super long logs
     on:
       branch: master
   # deploy wiki to r/datascience
   - provider: script
     script: docker exec ${CONTAINER_NAME} /bin/bash -c "bazel run //apps/wiki:bin datascience"
+    skip_cleanup: true  # avoid super long logs
     on:
       tags: true
   # deploy submission moderator app
@@ -83,6 +94,7 @@ deploy:
     handler_name: lambda_handler
     timeout: 30
     zip: _output/submission_moderator_app/lambda_pkg.zip
+    skip_cleanup: true  # avoid super long logs
     on:
       tags: true
   # deploy entering and transitioning app
@@ -95,5 +107,6 @@ deploy:
     handler_name: lambda_handler
     timeout: 300
     zip: _output/entering_and_transitioning_app/lambda_pkg.zip
+    skip_cleanup: true  # avoid super long logs
     on:
       tags: true
