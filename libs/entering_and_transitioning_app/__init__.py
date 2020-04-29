@@ -244,6 +244,8 @@ def main(
         last_thread_exists = True
         if validate:
             validate_unique_thread(last_thread)
+        # unsticky old thread before stickying new thread
+        last_thread.mod.sticky(state=False)
 
     logger.info("Create new Entering & Transitioning thread")
     author = SubmissionAuthor(subreddit)
@@ -253,4 +255,3 @@ def main(
         logger.info("Remediate comments on last Entering & Transitioning thread")
         remediator = CommentRemediator()
         remediator.remediate_comments(on_thread=last_thread, to_thread=new_thread)
-        last_thread.mod.sticky(state=False)
